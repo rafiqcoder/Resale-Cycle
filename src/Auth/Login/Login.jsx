@@ -149,7 +149,7 @@ const Login = () => {
             </form>
 
             <p className="text-sm mt-4 font-medium leading-none text-gray-500">
-              New to TeethCares?
+              New to ResaleCycle?
               <Link
                 to="/register"
                 tabIndex={0}
