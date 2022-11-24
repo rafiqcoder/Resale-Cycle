@@ -1,3 +1,67 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;800&family=Saira+Semi+Condensed:wght@300;400;600&display=swap");
+
+/* .active{
+   padding: 8px 10px !important;
+   font-size: 14px !important;
+}
+.header>a{
+    font-size: 14px !important;
+     padding: 8px 10px !important;
+} */
+header {
+  background-color: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+
+  top: 0;
+  left: 0;
+  padding: 0 30px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  /* text-transform: uppercase; */
+}
+.card p {
+  font-weight: 400;
+}
+p {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px !important;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Saira Semi Condensed", sans-serif;
+  font-weight: 600;
+}
+/* footer{
+    background: url('Assets/images/footerImg.png') no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    color: #fff !important;
+     font-family: 'Saira Semi Condensed', sans-serif;
+     margin: 0;
+     width: 100%;
+} */
+input {
+    font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+}
+.menu > li > a {
+  padding: 5px 10px;
+  font-size: 14px;
+}
