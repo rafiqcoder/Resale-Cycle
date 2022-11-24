@@ -2,13 +2,13 @@ import React from 'react';
 
 const DashWellcome = () => {
     return (
-      <header className="bg-white dark:bg-gray-900">
+      <div className="bg-white dark:bg-gray-900">
         <div className="container px-6 py-16 mx-auto">
           <div className="items-center lg:flex justify-center">
             <div className="w-full lg:w-1/2">
               <div className="lg:max-w-lg">
                 <h1 className="text-2xl font-semibold text-gray-800 dark:text-white lg:text-3xl">
-                  Subscribe To The <span className="text-blue-500">Newsletter</span>
+                  Wellcome To The <span className="text-blue-500">Dashboard</span>
                 </h1>
 
                 <p className="mt-4 text-gray-600 dark:text-gray-400">
@@ -40,7 +40,7 @@ const DashWellcome = () => {
             </div>
           </div>
         </div>
-      </header>
+      </div>
     );
 };
 

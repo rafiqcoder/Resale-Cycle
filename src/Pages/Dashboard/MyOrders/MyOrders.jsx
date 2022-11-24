@@ -3,30 +3,30 @@ import React,{ useContext,useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../../Context/Context';
 
-const MyAppoints = () => {
+const MyOrders = () => {
   const { user } = useContext(UserContext);
   const [date,setDate] = useState('');
-  
-  const {data:myAppoints=[],refetch} = useQuery({
-    queryKey: ["myAppoints",user?.email],
-    queryFn: async () => {
-      const response = await fetch(
-        `http://localhost:5000/user/bookedAppointments?email=${user.email}`,{
-          headers: {
-            authorization: `Bearer ${localStorage.getItem("token")}`,
-          }
-        }
-      )
-      const data = await response.json();
-      return data;
-    }
-  })
+  const [myAppoints,setMyAppoints] = useState([]);
+  // const {data:myAppoints=[],refetch} = useQuery({
+  //   queryKey: ["myAppoints",user?.email],
+  //   queryFn: async () => {
+  //     const response = await fetch(
+  //       `http://localhost:5000/user/bookedAppointments?email=${user.email}`,{
+  //         headers: {
+  //           authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         }
+  //       }
+  //     )
+  //     const data = await response.json();
+  //     return data;
+  //   }
+  // })
   
   console.log(myAppoints);
     return (
       <div className="overflow-x-auto w-full">
         <div className="flex justify-between px-10 items-center content-center  my-5">
-          <h2 className="font-semibold text-lg">My Appointments</h2>{" "}
+          <h2 className="font-semibold text-lg">My Appointments</h2>
           <button className="btn">{date}</button>
         </div>
         <table className="table w-full">
@@ -69,4 +69,4 @@ const MyAppoints = () => {
     );
 };
 
-export default MyAppoints;
+export default MyOrders;

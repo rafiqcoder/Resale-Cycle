@@ -104,6 +104,7 @@ const Login = () => {
                   </p>
                 )}
               </div>
+
               <div className="mt-6  w-full">
                 <label className="text-sm font-medium leading-none text-gray-800">
                   Password
@@ -112,7 +113,10 @@ const Login = () => {
                   <input
                     {...register("password", {
                       required: "Password is required",
-                      minLength: { value: 6, message: "Password must be 6 characters long" },
+                      minLength: {
+                        value: 6,
+                        message: "Password must be 6 characters long",
+                      },
                     })}
                     className="border rounded-lg focus:outline-none text-xs font-medium leading-none text-gray-800 w-full pl-3 mt-2 py-4"
                   />
@@ -141,8 +145,8 @@ const Login = () => {
                   </p>
                 )}
               </div>
-
-              <button className="focus:ring-2 mt-8 focus:ring-offset-2 focus:ring-indigo-700 text-lg font-semibold leading-none text-white focus:outline-none bg-accent border hover:bg-indigo-600 py-4 w-full rounded-lg">
+              
+              <button className="focus:ring-2 my-8 focus:ring-offset-2 focus:ring-indigo-700 text-lg font-semibold leading-none text-white focus:outline-none bg-accent border hover:bg-indigo-600 py-4 w-full rounded-lg">
                 Login
               </button>
               <Link>Forget password?</Link>

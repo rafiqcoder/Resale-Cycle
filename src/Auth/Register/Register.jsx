@@ -1,4 +1,5 @@
 import React,{ useContext,useState } from 'react';
+import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link,useLocation,useNavigate } from 'react-router-dom';
 import Spinner from '../../Components/Spinner/Spinner';
@@ -11,11 +12,17 @@ const Register = () => {
   // geting firebase register function from context
   const { registerWithPassword, updateNameAndPhoto, userEmail, saveUserToDb } =
     useContext(UserContext);
+    const {
+      register,
+      formState: { errors },
+      handleSubmit,
+    } = useForm();
   const [loading,setLoading] = useState(false)
   const [error,setError] = useState('')
+      const [size, setSize] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
-
+  console.log(size);
   const from = location.state?.from?.pathname || "/";
   const [token]=UseToken(userEmail)
   if (token) {
@@ -33,40 +40,45 @@ const Register = () => {
       <Spinner></Spinner>
     );
   }
+
+
+  
+
   // register function
-  const handleRegisiter = (e) => {
-    e.preventDefault();
+  const handleRegisiter = (data) => {
+    console.log(data);
+    // e.preventDefault();
     //setting loading to true
     setLoading(true);
     
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    const img = e.target.img.value;
-    const name = e.target.name.value;
-    //setting initial name and photo
+    // const email = e.target.email.value;
+    // const password = e.target.password.value;
+    // const img = e.target.img.value;
+    // const name = e.target.name.value;
+    // setting initial name and photo
     
     // calling firebase register function
-    registerWithPassword(email,password)
+    registerWithPassword(data.email, data.password)
       .then((res) => {
-       
-        updateNameAndPhoto(name,img)
-          .then((result) => {
-            // setting loading to false.
-            // console.log(result+'line 50');
-            setLoading(false);
-            
-        saveUserToDb(name,email);
-           
-          })
+              console.log(data.name, data.img + "line 63");
+        updateNameAndPhoto(data.name, data.img).then((result) => {
+          // setting loading to false.
+          // console.log(result+'line 50');
+    
+          setLoading(false);
+            console.log(data.name, data.img+'line 67');
+          saveUserToDb(data.name, data.img);
+        });
         setLoading(false);
-               
-                toast.success('Register Successfully');
-    })
-    .catch((err) => {
-      console.log(err);
-       setLoading(false);
-      setError(err.message)
-    });
+
+        toast.success("Register Successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        setError(err.message);
+      });
+   
   }
  
   // const getUserToken = (email) => {
@@ -86,7 +98,7 @@ const Register = () => {
       <div className="h-full bg-gradient-to-tl from-green-400 to-indigo-900 w-full py-16 px-4">
         <div className="flex flex-col items-center justify-center">
           <form
-            onSubmit={handleRegisiter}
+            onSubmit={handleSubmit(handleRegisiter)}
             className="bg-white shadow rounded lg:w-1/3  md:w-1/2 w-full p-10 mt-16"
           >
             <p
@@ -101,18 +113,25 @@ const Register = () => {
                 Image Link
               </label>
               <input
-                type="text"
-                name="img"
+                {...register("img")}
                 className="bg-gray-200 border rounded focus:outline-none text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
               />
+              {/* {errors.img && (
+                <p
+                  role="alert"
+                  className="text-red-500 text-xs font-medium mt-2"
+                >
+                  {errors.email?.message}
+                </p>
+              )} */}
             </div>
             <div>
               <label className="text-sm font-medium leading-none text-gray-800">
                 Name
               </label>
               <input
-                type="text"
-                name="name"
+                {...register("name")}
+               
                 className="bg-gray-200 border rounded focus:outline-none text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
               />
             </div>
@@ -122,10 +141,19 @@ const Register = () => {
                 Email
               </label>
               <input
-                type="email"
-                name="email"
-                className="bg-gray-200 border rounded focus:outline-none text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
+                {...register("email", {
+                  required: "Email is required",
+                })}
+                className="border rounded-lg focus:outline-none text-xs font-medium leading-none text-gray-800 py-4 w-full pl-3 mt-2"
               />
+              {errors.email && (
+                <p
+                  role="alert"
+                  className="text-red-500 text-xs font-medium mt-2"
+                >
+                  {errors.email?.message}
+                </p>
+              )}
             </div>
             <div className="mt-6  w-full">
               <label className="text-sm font-medium leading-none text-gray-800">
@@ -133,10 +161,24 @@ const Register = () => {
               </label>
               <div className="relative flex items-center justify-center">
                 <input
-                  type="password"
-                  name="password"
-                  className="bg-gray-200 border rounded focus:outline-none text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be 6 characters long",
+                    },
+                  })}
+                  
+                  className="border rounded-lg focus:outline-none text-xs font-medium leading-none text-gray-800 w-full pl-3 mt-2 py-4"
                 />
+                {errors.password && (
+                  <p
+                    role="alert"
+                    className="text-red-500 text-xs font-medium mt-2 "
+                  >
+                    {errors.password?.message}
+                  </p>
+                )}
                 <div className="absolute right-0 mt-2 mr-3 cursor-pointer">
                   <svg
                     width={16}
@@ -153,9 +195,23 @@ const Register = () => {
                 </div>
               </div>
             </div>
-            {
-              error && <p className="text-red-500 text-xs mt-2">{error}</p>
-            }
+            {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
+            <div className="py-6">
+              <label className="text-sm font-medium leading-none text-gray-800 pr-10">
+                Acount Type
+              </label>
+
+              <select
+                onChange={(event) => setSize(event.target.value)}
+                className="border p-2"
+              >
+                <option value="">Select...</option>
+                <option value="buyer" selected>
+                  Buyer
+                </option>
+                <option value="seller">Seller</option>
+              </select>
+            </div>
             <button
               type="submit"
               className="focus:ring-2 mt-8 focus:ring-offset-2 focus:ring-indigo-700 text-sm font-semibold leading-none text-white focus:outline-none bg-indigo-700 border rounded hover:bg-indigo-600 py-4 w-full"

@@ -6,7 +6,7 @@ const Veloce = () => {
     return (
         <div>
             <CatBanner img={veloce} title='Veloce'></CatBanner>
-            <AdvertiseSection ></AdvertiseSection>
+            <AdvertiseSection></AdvertiseSection>
         </div>
     );
 };
