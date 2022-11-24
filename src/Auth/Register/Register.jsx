@@ -13,10 +13,10 @@ const Register = () => {
     useContext(UserContext);
   const [loading,setLoading] = useState(false)
   const [error,setError] = useState('')
-   const location = useLocation();
-    const navigate = useNavigate();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/";
   const [token]=UseToken(userEmail)
   if (token) {
     navigate(from ,{replace: true});
@@ -38,14 +38,13 @@ const Register = () => {
     e.preventDefault();
     //setting loading to true
     setLoading(true);
-     
+    
     const email = e.target.email.value;
     const password = e.target.password.value;
-     const img = e.target.img.value;
+    const img = e.target.img.value;
     const name = e.target.name.value;
-
     //setting initial name and photo
-   
+    
     // calling firebase register function
     registerWithPassword(email,password)
       .then((res) => {
