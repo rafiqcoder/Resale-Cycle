@@ -3,7 +3,7 @@ import { createUserWithEmailAndPassword,getAuth,GoogleAuthProvider,onAuthStateCh
 import React,{ createContext,useEffect,useState } from 'react';
 import toast from "react-hot-toast";
 import { app } from '../Firebase/Firebase.config';
-
+import axios from 'axios';
 
 
 export const DataContext = createContext();
@@ -14,9 +14,23 @@ const Context = ({ children }) => {
     const [user,setUser] = useState([]);
     const [loading,setLoading] = useState(true);
     const [userEmail,setUserEmail] = useState('')
+  
     const auth = getAuth(app)
 
     const Provider = new GoogleAuthProvider();
+
+    const [userData,setUserData] = useState([]);
+    // console.log(userData);
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:5000/allusers")
+            .then((data) => setUserData(data.data))
+            .catch((error) => {
+                // handle error
+                console.log(error);
+            });
+    },[]);
 
     const loginWithGoogle = () => {
         setLoading(true);
@@ -51,13 +65,16 @@ const Context = ({ children }) => {
         return () => unsubscribe();
     },[auth])
 
+    // console.log(userData);
+   
+
 
     const saveUserToDb = (name,email,img,userType) => {
         let verified;
         if (userType === 'seller') {
-             verified = false;
+            verified = false;
         }
-        
+
         const user = { name,email,img,userType,verified };
 
         fetch(`http://localhost:5000/users`,{
@@ -74,14 +91,14 @@ const Context = ({ children }) => {
                     setUserEmail(user.email);
                     toast.success("User added successfully");
                 }
-                
+
             }).catch((err) => {
                 console.log(err);
             });
     };
 
 
-    const dataInfo = {}
+    const dataInfo = { userData }
 
     const userInfo = {
         loginWithGoogle,

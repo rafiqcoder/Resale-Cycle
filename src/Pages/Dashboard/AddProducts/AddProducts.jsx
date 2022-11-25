@@ -1,11 +1,19 @@
-import React,{ useState } from 'react';
+import { format } from "date-fns";
+import React,{ useContext,useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import Spinner from '../../../Components/Spinner/Spinner';
+import { DataContext,UserContext } from '../../../Context/Context';
 import UseTitle from '../../../hooks/UseTitle';
 
 const AddProducts = () => {
-  
+    const {user} = useContext(UserContext);
+  const [date,setDate] = useState(new Date())
+  const { userData } = useContext(DataContext);
+  const [currentUser, setCurrentUser] = useState(
+    userData?.find((eachUser) => eachUser.email === user?.email)
+  );
+  // console.log(currentUser);
     const {
       register,
       formState: { errors },
@@ -14,39 +22,51 @@ const AddProducts = () => {
     const [refresh, setRefresh] = useState(false);
   //seting title
   UseTitle("Add Products");
-
+    
     if (refresh) {
         return <Spinner></Spinner>
     }
     
+    const postingDate = format(date, "PP");
+    
     const handleAddProduct = (data) => {
+
     setRefresh(true);
     // e.preventDefault();
     // const form = e.target;
-    // const name = form.name.value;
+    const sellerName = currentUser.name;
     // const price = form.price.value;
-    // const desc = form.desc.value;
-    // const image = form.img.value;
-    // const product = { name, price, desc, image };
-        console.log(data);
+    const verified = currentUser.verified;
+        const sellerImage = currentUser.img;
+        const email = currentUser.email;
+    const product = {
+      ...data,
+      sellerName,
+      verified,
+      sellerImage,
+      email,
+      postingDate,
+    };
+        console.log(product);
     // inserting new Product
-    fetch(
-      "https://acsolutions-server-n403euqde-rafiqcoder.vercel.app/add-Product",
-      {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(data),
-      }
-    )
+    fetch("http://localhost:5000/add-Product", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(product),
+    })
       .then((res) => res.json())
       .then((data) => {
-        if (data.data.acknowledged) {
+        if (data.acknowledged) {
           toast.success("Product Added Successfully");
           setRefresh(false);
-          
         }
+       
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+         setRefresh(false);
+        console.log(err)
+      });
+       setRefresh(false);
   };
   return (
     <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100 mx-auto my-20">
@@ -62,16 +82,14 @@ const AddProducts = () => {
               <span className="label-text">Product Name & Modal</span>
             </label>
             <input
-           
-                 {...register("name", {
+              {...register("name", {
                 required: "Product is required",
               })}
-             
               placeholder="name"
               className="input input-bordered"
             />
-                  </div>
-                  {errors.name && (
+          </div>
+          {errors.name && (
             <p role="alert" className="text-red-500 text-xs font-medium mt-2">
               {errors.name?.message}
             </p>
@@ -130,24 +148,45 @@ const AddProducts = () => {
             {errors.img?.message}
           </p>
         )}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Mobile Number</span>
-          </label>
-          <input
-            type="number"
-            {...register("number", {
-              required: "number is required",
-            })}
-            placeholder="Your Mobile Number"
-            className="input input-bordered"
-          />
+        <div className="flex gap-3 justify-between">
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text">Mobile Number</span>
+            </label>
+            <input
+              type="number"
+              {...register("number", {
+                required: "number is required",
+              })}
+              placeholder="Your Mobile Number"
+              className="input input-bordered"
+            />
+          </div>
+          {errors.number && (
+            <p role="alert" className="text-red-500 text-xs font-medium mt-2">
+              {errors.number?.message}
+            </p>
+          )}
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text ">Category</span>
+            </label>
+            <select
+              {...register("category", { required: "Category is required" })}
+              className="border p-3 rounded-lg"
+            >
+              <option value="">Select...</option>
+              <option value="veloce">Veloce</option>
+              <option value="phonix">Phonix</option>
+              <option value="foxter">Foxter</option>
+            </select>
+          </div>
+          {errors.category && (
+            <p role="alert" className="text-red-500 text-xs font-medium mt-2">
+              {errors.category?.message}
+            </p>
+          )}
         </div>
-        {errors.number && (
-          <p role="alert" className="text-red-500 text-xs font-medium mt-2">
-            {errors.number?.message}
-          </p>
-        )}
         <div className="flex gap-3 justify-between">
           <div className="form-control w-full">
             <label className="label">
@@ -176,7 +215,6 @@ const AddProducts = () => {
               {...register("sellPrice", {
                 required: "Selling Price is required",
               })}
-              name="sellPrice"
               placeholder="Selling price"
               className="input input-bordered"
             />
@@ -187,13 +225,14 @@ const AddProducts = () => {
             </p>
           )}
         </div>
-
+        {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illo quae non praesentium assumenda itaque deleniti reiciendis dolores sapiente eligendi repudiandae vel, dolor ducimus corrupti veniam natus nesciunt quas ea. */}
         <div className="flex gap-3 justify-between">
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text">Years of use</span>
             </label>
             <input
+              type="number"
               {...register("usedTime", { required: "Used Time is required" })}
               placeholder="Years of use"
               className="input input-bordered"

@@ -1,0 +1,111 @@
+import React from 'react';
+
+const BookingModal = ({
+  handleAddcategory,
+  userData,
+  currentItem,
+    handleSubmit,
+  register,
+errors
+}) => {
+  return (
+    <div>
+      <input type="checkbox" id="my-modal" className="modal-toggle" />
+      <div className="modal">
+        <div className="modal-box">
+          <div className="flex-shrink-0 w-full max-w-xl  bg-base-100 mx-auto">
+            <form
+              onSubmit={handleSubmit(handleAddcategory)}
+              className="card-body"
+            >
+              <div className=" text-center">
+                <h2 className="text-2xl text-primary text-center">
+                  Book {currentItem?.name}
+                </h2>
+              </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Category Name</span>
+                </label>
+                <input
+                  {...register("categoryName", {
+                    required: "Category Name is required",
+                  })}
+                  placeholder="name"
+                  className="input input-bordered"
+                />
+              </div>
+              {errors.categoryName && (
+                <p
+                  role="alert"
+                  className="text-red-500 text-xs font-medium mt-2"
+                >
+                  {errors.categoryName?.message}
+                </p>
+              )}
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Category image Link</span>
+                </label>
+                <input
+                  type="text"
+                  {...register("img", {
+                    required: "img is required",
+                  })}
+                  placeholder="Category image Link"
+                  className="input input-bordered"
+                />
+              </div>
+              {errors.img && (
+                <p
+                  role="alert"
+                  className="text-red-500 text-xs font-medium mt-2"
+                >
+                  {errors.img?.message}
+                </p>
+              )}
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Category Cover Image Link</span>
+                </label>
+                <input
+                  type="text"
+                  {...register("coverImg", {
+                    required: "img is required",
+                  })}
+                  placeholder="Category image Link"
+                  className="input input-bordered"
+                />
+              </div>
+              {errors.coverImg && (
+                <p
+                  role="alert"
+                  className="text-red-500 text-xs font-medium mt-2"
+                >
+                  {errors.coverImg?.message}
+                </p>
+              )}
+
+              {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illo quae non praesentium assumenda itaque deleniti reiciendis dolores sapiente eligendi repudiandae vel, dolor ducimus corrupti veniam natus nesciunt quas ea. */}
+
+              <div className="modal-action form-control mt-6">
+                <label
+                  htmlFor="my-modal"
+                  type="submit"
+                  className="btn btn-primary"
+                >
+                  add Category
+                </label>
+              </div>
+            </form>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BookingModal;

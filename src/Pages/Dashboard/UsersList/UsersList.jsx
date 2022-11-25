@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
+
 import React,{ useContext } from 'react';
 import toast from 'react-hot-toast';
-import { UserContext } from '../../../Context/Context';
+import { DataContext, UserContext } from '../../../Context/Context';
 
 const UsersList = () => {
     const { user } = useContext(UserContext)
+
     
     const { data: users=[],refetch } = useQuery({
         queryKey: ["users"],

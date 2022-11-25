@@ -1,14 +1,15 @@
 import React from 'react';
+import { useLoaderData } from 'react-router-dom';
 import Banner from '../../../Components/Banner/Banner';
-import CatBanner from '../../../Components/CatBanner/CatBanner';
 import CartegorySection from '../../../Components/CategorySection/CartegorySection';
 
 const Home = () => {
+  const data = useLoaderData()
+  console.log(data);
     return (
       <div>
-        
         <Banner></Banner>
-        <CartegorySection></CartegorySection>
+        <CartegorySection data={data}></CartegorySection>
       </div>
     );
 };

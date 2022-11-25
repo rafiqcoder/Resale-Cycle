@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../Auth/Login/Login";
 import Register from "../Auth/Register/Register";
+import AddCategories from "../Components/DashComponents/AddCategories/AddCategories";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Main from "../Layout/Main";
+import CategoryPage from "../Pages/Categories/CategoryPage";
 import Foxter from "../Pages/Categories/Foxter";
 import Phonix from "../Pages/Categories/Phonix";
-import Veloce from "../Pages/Categories/Veloce";
 import AddProducts from "../Pages/Dashboard/AddProducts/AddProducts";
 import Dashboard from "../Pages/Dashboard/Dashboard/Dashboard";
 import MyOrders from "../Pages/Dashboard/MyOrders/MyOrders";
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',element: <Home></Home>,
+                loader: () => { return fetch('http://localhost:5000/all-categories') }
             },
 
 
@@ -40,7 +42,8 @@ const router = createBrowserRouter([
                 path: '/register',element: <Register></Register>
             },
             {
-                path: '/veloce',element: <Veloce />
+                path: '/:name/:id',element: <CategoryPage />,
+                loader: ({params}) => { return fetch(`http://localhost:5000/${params.name}/${params.id}`) }
             },
             {
                 path: '/phonix',element: <Phonix />
@@ -55,7 +58,7 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: '/',element: <PrivateRoute><DashboardLayout /></PrivateRoute> ,
+        path: '/',element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
         children: [
             {
                 path: '/dashboard',element: <Dashboard />,
@@ -64,10 +67,13 @@ const router = createBrowserRouter([
                 path: '/my-orders',element: <MyOrders />,
             },
             {
-                path: '/all-buyers',element: < AllBuyers/>,
+                path: '/all-buyers',element: < AllBuyers />,
             },
             {
-                path: '/all-sellers',element: < AllSellers/>,
+                path: '/all-sellers',element: < AllSellers />,
+            },
+            {
+                path: '/add-categories',element: < AddCategories />,
             },
             {
                 path: '/add-product',element: <AddProducts />,

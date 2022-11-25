@@ -1,14 +1,29 @@
 import React from 'react';
 
-const ProductCard = ({children}) => {
+const ProductCard = ({children,item}) => {
     return (
-      <div class="max-w-2xl overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-        <img
-          class="object-cover w-full h-64"
-          src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-          alt="Article"
-        />
-
+      <div class="max-w-2xl overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 relative">
+        <img class="object-cover w-full h-64 " src={item?.img} alt="Article" />
+        <div
+          className="tooltip ml-2 absolute top-0 right-0"
+          data-tip="Report to Admin"
+        >
+          <button className=" rounded-full">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              className="stroke-red-600 flex-shrink-0 w-8 h-8 bg-white rounded-full p-1"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </button>
+        </div>
         <div class="p-6">
           <div>
             <div class="mt-2">
@@ -17,37 +32,41 @@ const ProductCard = ({children}) => {
                   <div class="flex items-center">
                     <img
                       class="object-cover h-10 rounded-full"
-                      src="https://images.unsplash.com/photo-1586287011575-a23134f797f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=48&q=60"
+                      src={item?.sellerImage}
                       alt="Avatar"
                     />
+
                     <div
-                      class="mx-2 font-semibold text-gray-700 dark:text-gray-200"
+                      class="mx-2 font-semibold text-gray-700 dark:text-gray-200 flex flex-col"
                       tabindex="0"
                       role="link"
                     >
-                      Jone Doe
+                      <div>{item.sellerName}</div>
+                      <div className="text-sm font-normal">
+                        {item.postingDate}
+                      </div>
                     </div>
                   </div>
-                  <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">
-                    21 SEP 2015
-                  </span>
+                  <span class="mx-1 text-xs text-gray-600 dark:text-gray-300"></span>
                 </div>
-                <div className="flex items-center justify-center w-8 h-8 rounded-md border border-green-600 text-green-500">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="w-5 h-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    ></path>
-                  </svg>
-                </div>
+                {item.verified && (
+                  <div className="flex items-center justify-center w-8 h-8 rounded-md border border-green-600 text-green-500">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                  </div>
+                )}
               </div>
             </div>
             <div
@@ -55,15 +74,22 @@ const ProductCard = ({children}) => {
               tabindex="0"
               role="link"
             >
-              I Built A Successful Blog In One Year
+              {item.name}
             </div>
             <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie
-              parturient et sem ipsum volutpat vel. Natoque sem et aliquam
-              mauris egestas quam volutpat viverra. In pretium nec senectus
-              erat. Et malesuada lobortis.
-                    </p>
-                  {children}
+              {item.desc}
+            </p>
+            <div className="flex justify-between ">
+              <div className='mt-6'>
+                <h2 className="">
+                  Orginal Price:<span className="text-orange-400"> {item.orginalPrice}</span> Tk
+                </h2>
+                <h2 className="font-semibold">
+                  Sale Price: <span className="text-orange-500">{item.orginalPrice}</span> Tk
+                </h2>
+              </div>
+              {children}
+            </div>
           </div>
         </div>
       </div>

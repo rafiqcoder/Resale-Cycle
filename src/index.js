@@ -7,7 +7,7 @@ import { Toaster } from 'react-hot-toast';
 import App from './App';
 import Context from './Context/Context';
 import './index.css';
-
+import 'react-day-picker/dist/style.css';
 
 const queryClient = new QueryClient()
 
