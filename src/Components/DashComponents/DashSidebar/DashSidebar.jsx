@@ -7,7 +7,7 @@ const DashSidebar = () => {
   const { user } = useContext(UserContext);
   const [isAdmin] = UseAdmin(user?.email)
     return (
-      <div className="flex flex-col w-64 h-screen py-8 bg-blue-200 border-r dark:bg-gray-900 dark:border-gray-700">
+      <div className="flex flex-col sm:w-64 flex-1  sm:flex-none h-screen py-8 bg-blue-200 border-r dark:bg-gray-900 dark:border-gray-700">
         <h2 className="text-3xl font-semibold text-center text-gray-800 dark:text-white">
           Wellcome
         </h2>
@@ -101,7 +101,7 @@ const DashSidebar = () => {
               <span className="mx-4 font-medium">My Orders</span>
             </Link>
             <Link
-              to="/my-wishlist"
+              to="/all-buyers"
               className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
             >
               <svg
@@ -122,7 +122,7 @@ const DashSidebar = () => {
               <span className="mx-4 font-medium">All Buyers</span>
             </Link>
             <Link
-              to="/my-wishlist"
+              to="/all-sellers"
               className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
             >
               <svg

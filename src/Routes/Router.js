@@ -15,6 +15,7 @@ import AllSellers from "../Pages/Dashboard/UsersList/AllSellers";
 
 import Home from "../Pages/Home/Home/Home";
 import NotFound from "../Pages/NotFound/NotFound";
+import PrivateRoute from "./PrivateRoute";
 
 
 
@@ -54,7 +55,7 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: '/',element:<DashboardLayout />,
+        path: '/',element: <PrivateRoute><DashboardLayout /></PrivateRoute> ,
         children: [
             {
                 path: '/dashboard',element: <Dashboard />,
@@ -63,10 +64,10 @@ const router = createBrowserRouter([
                 path: '/my-orders',element: <MyOrders />,
             },
             {
-                path: '/allbuyers',element: < AllBuyers/>,
+                path: '/all-buyers',element: < AllBuyers/>,
             },
             {
-                path: '/allsellers',element: < AllSellers/>,
+                path: '/all-sellers',element: < AllSellers/>,
             },
             {
                 path: '/add-product',element: <AddProducts />,

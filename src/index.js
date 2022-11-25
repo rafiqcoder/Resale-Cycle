@@ -1,17 +1,26 @@
+import {
+  QueryClient,QueryClientProvider
+} from '@tanstack/react-query';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { Toaster } from 'react-hot-toast';
 import App from './App';
 import Context from './Context/Context';
+import './index.css';
+
+
+const queryClient = new QueryClient()
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Context>
-
-    <App />
-    </Context>
+    <Toaster position='top-center' reverseOrder={false}></Toaster>
+    <QueryClientProvider client={queryClient}>
+      <Context>
+        <App />
+      </Context>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

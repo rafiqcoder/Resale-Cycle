@@ -52,8 +52,13 @@ const Context = ({ children }) => {
     },[auth])
 
 
-    const saveUserToDb = (name,email) => {
-        const user = { name,email };
+    const saveUserToDb = (name,email,img,userType) => {
+        let verified;
+        if (userType === 'seller') {
+             verified = false;
+        }
+        
+        const user = { name,email,img,userType,verified };
 
         fetch(`http://localhost:5000/users`,{
             method: "POST",
@@ -69,7 +74,7 @@ const Context = ({ children }) => {
                     setUserEmail(user.email);
                     toast.success("User added successfully");
                 }
-
+                
             }).catch((err) => {
                 console.log(err);
             });

@@ -1,9 +1,9 @@
 import React from 'react';
-
+import loader from '../../Assets/images/loader.gif';
 const Spinner = () => {
     return (
-      <div className="bg-gray-100">
-        <div className=" rounded relative">
+      <div className="bg-white w-full h-screen flex items-center content-center">
+        {/* <div className=" rounded relative">
           <div className="rounded-full bg-indigo-200 w-[190px] h-[190px] relative flex justify-center items-center mx-auto animate-spin">
             <svg
               className="absolute top-[2px] right-0"
@@ -22,13 +22,14 @@ const Spinner = () => {
                 strokeWidth={40}
                 mask="url(#path-1-inside-1_2495_2146)"
               />
-            </svg>
-            <div className="rounded-full bg-white w-[150px] h-[150px]" />
+            </svg> */}
+            <img src={loader} alt="" />
+            {/* <div className="rounded-full bg-white w-[150px] h-[150px]" />
           </div>
           <p className="absolute mx-auto inset-x-0 my-auto inset-y-[80px] text-base font-medium text-gray-800 text-center">
             Loading ...
           </p>
-        </div>
+        </div> */}
       </div>
     );
 };

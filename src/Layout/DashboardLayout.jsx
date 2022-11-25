@@ -7,10 +7,10 @@ import Header from "./Header/Header";
 
 const DashboardLayout = () => {
   return (
-    <div>
+    <div className=" overflow-hidden">
       <Header />
 
-      <div className="flex">
+      <div className="flex flex-wrap">
        
         <DashSidebar></DashSidebar>
         <Outlet></Outlet>

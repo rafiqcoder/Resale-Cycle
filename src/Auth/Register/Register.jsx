@@ -19,10 +19,10 @@ const Register = () => {
     } = useForm();
   const [loading,setLoading] = useState(false)
   const [error,setError] = useState('')
-      const [size, setSize] = useState('');
+
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(size);
+  
   const from = location.state?.from?.pathname || "/";
   const [token]=UseToken(userEmail)
   if (token) {
@@ -46,31 +46,21 @@ const Register = () => {
 
   // register function
   const handleRegisiter = (data) => {
-    console.log(data);
-    // e.preventDefault();
-    //setting loading to true
+    
     setLoading(true);
     
-    // const email = e.target.email.value;
-    // const password = e.target.password.value;
-    // const img = e.target.img.value;
-    // const name = e.target.name.value;
-    // setting initial name and photo
-    
     // calling firebase register function
-    registerWithPassword(data.email, data.password)
+    registerWithPassword(data.email,data.password)
+      
       .then((res) => {
               console.log(data.name, data.img + "line 63");
         updateNameAndPhoto(data.name, data.img).then((result) => {
-          // setting loading to false.
-          // console.log(result+'line 50');
-    
           setLoading(false);
             console.log(data.name, data.img+'line 67');
-          saveUserToDb(data.name, data.img);
+          saveUserToDb(data.name, data.email,data.img, data.userType);
         });
         setLoading(false);
-
+      
         toast.success("Register Successfully");
       })
       .catch((err) => {
@@ -78,22 +68,9 @@ const Register = () => {
         setLoading(false);
         setError(err.message);
       });
-   
+  
   }
- 
-  // const getUserToken = (email) => {
-  //   fetch(`http://localhost:5000/jwt?email=${email}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data.accessToken) {
-  //         localStorage.setItem("token", data.accessToken);
-  //         // navigate(from ,{replace: true});
-  //       }
-        
-      
-        
-  //     });
-  // }
+
     return (
       <div className="h-full bg-gradient-to-tl from-green-400 to-indigo-900 w-full py-16 px-4">
         <div className="flex flex-col items-center justify-center">
@@ -113,9 +90,19 @@ const Register = () => {
                 Image Link
               </label>
               <input
-                {...register("img")}
+                {...register("img", {
+                  required: "img is required",
+                })}
                 className="bg-gray-200 border rounded focus:outline-none text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
               />
+              {errors.img && (
+                <p
+                  role="alert"
+                  className="text-red-500 text-xs font-medium mt-2"
+                >
+                  {errors.img?.message}
+                </p>
+              )}
               {/* {errors.img && (
                 <p
                   role="alert"
@@ -130,10 +117,19 @@ const Register = () => {
                 Name
               </label>
               <input
-                {...register("name")}
-               
+                {...register("name", {
+                  required: "Email is required",
+                })}
                 className="bg-gray-200 border rounded focus:outline-none text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
               />
+              {errors.name && (
+                <p
+                  role="alert"
+                  className="text-red-500 text-xs font-medium mt-2"
+                >
+                  {errors.name?.message}
+                </p>
+              )}
             </div>
 
             <div>
@@ -161,6 +157,7 @@ const Register = () => {
               </label>
               <div className="relative flex items-center justify-center">
                 <input
+                type="password"
                   {...register("password", {
                     required: "Password is required",
                     minLength: {
@@ -168,7 +165,6 @@ const Register = () => {
                       message: "Password must be 6 characters long",
                     },
                   })}
-                  
                   className="border rounded-lg focus:outline-none text-xs font-medium leading-none text-gray-800 w-full pl-3 mt-2 py-4"
                 />
                 {errors.password && (
@@ -202,7 +198,7 @@ const Register = () => {
               </label>
 
               <select
-                onChange={(event) => setSize(event.target.value)}
+                {...register("userType", { required: true })}
                 className="border p-2"
               >
                 <option value="">Select...</option>

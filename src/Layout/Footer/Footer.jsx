@@ -2,8 +2,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="footer p-10 bg-base-200 ">
-      <div className="footer p-0 m-0 w-[1440px] mx-auto text-base-content flex flex-wrap sm:flex-justify justify-between sm:p-20">
+    <footer className=" p-10 bg-base-200 ">
+      <div className="footer p-0 m-0 sm:w-[1440px] mx-auto text-base-content flex flex-wrap sm:flex-justify justify-between sm:p-20">
         <div>
           <span className="footer-title">Services</span>
           <a href="/" className="link link-hover">

@@ -38,7 +38,7 @@ const Login = () => {
   }
   // login with email and pasqword and setting laoding to true
   const handleLogin = (data) => {
-    
+  
     loginWithEmail(data.email,data.password)
     .then((result) => {
      
@@ -55,13 +55,14 @@ const Login = () => {
    
     // login with google
   const handleGoogleLogin = () => {
+      const userType = "buyer";
     loginWithGoogle()
       .then((result) => {
         toast.success('Login Successfully');
         
         setLoadLoging(false);
         setUserEmail(result.user.email);
-        saveUserToDb(result.user.displayName,result.user.email);
+        saveUserToDb(result.user.displayName,result.user.email,result.user.photoURL,userType);
       })
 
       .catch((error) => {
