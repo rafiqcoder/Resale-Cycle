@@ -6,31 +6,42 @@ import BookingModal from '../../Components/BookingModal/BookingModal';
 import CatBanner from '../../Components/CatBanner/CatBanner';
 import ProductCard from '../../Components/ProductCard/ProductCard';
 import Spinner from '../../Components/Spinner/Spinner';
-import { DataContext } from '../../Context/Context';
+import { UserContext } from '../../Context/Context';
 import UseTitle from '../../hooks/UseTitle';
+
+
 const CategoryPage = () => {
+  
   const data = useLoaderData()
   const { products,category } = data;
-  const {userData}=useContext(DataContext)
-  const [currentItem,setCurrentItem] = useState([]);
+  const { user } = useContext(UserContext);
+  // const {userData}=useContext(DataContext)
+  const [currentItem,setCurrentItem] = useState(null);
  const {
    register,
    formState: { errors },
    handleSubmit,
  } = useForm();
- const [refresh, setRefresh] = useState(false);
+ const [loading, setLoading] = useState(false);
  //seting title
  UseTitle("Add Category");
 
- if (refresh) {
+ if (loading) {
    return <Spinner></Spinner>;
  }
 
- const handleAddcategory = (data) => {
-   setRefresh(true);
-
-   // inserting new Category
-   fetch("http://localhost:5000/add-category", {
+ const handleAddBooking = (data) => {
+  //  setLoading(true);
+  data.buyerEmail = user.email;
+  data.buyerName = user.displayName;
+  data.itemName = currentItem.name;
+  data.itemImg = currentItem.img;
+  data.condition = currentItem.condition;
+  data.sellerLocation = currentItem.location;
+  data.sellerEmail = currentItem.email;
+  data.sellerName = currentItem.sellerName;
+  data.salePrice = currentItem.sellPrice;
+   fetch("http://localhost:5000/booking", {
      method: "POST",
      headers: { "content-type": "application/json" },
      body: JSON.stringify(data),
@@ -38,15 +49,35 @@ const CategoryPage = () => {
      .then((res) => res.json())
      .then((data) => {
        if (data.acknowledged) {
-         toast.success("Category Added Successfully");
-         setRefresh(false);
+         setCurrentItem(null);
+         toast.success("Booked successfully please coplete payment");
+         setLoading(false);
        }
      })
      .catch((err) => {
-       setRefresh(false);
+       setLoading(false);
      });
-   setRefresh(false);
- };
+   setLoading(false);
+  };
+  const handleReport = (item) => {
+    item.reporterEmail = user.email;
+    item.reporterName = user.displayName;
+
+    fetch("http://localhost:5000/report", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(item),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success("Reported successfully");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   // console.log(category);
 
     // const [products,setProducts] = useState([]);
@@ -87,17 +118,40 @@ const CategoryPage = () => {
                   >
                     Book Now
                   </label>
+                  <div
+                    className="tooltip ml-2 "
+                    data-tip="Report to Admin"
+                    onClick={() => handleReport(item)}
+                  >
+                    <button className=" rounded-full">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        className="stroke-red-600 flex-shrink-0 w-8 h-8 bg-white rounded-full p-1"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
                 </ProductCard>
               ))}
             </div>
-            <BookingModal
-              handleAddcategory={handleAddcategory}
-              userData={userData}
-              currentItem={currentItem}
-              handleSubmit={handleSubmit}
-              register={register}
-              errors={errors}
-            ></BookingModal>
+            {currentItem && (
+              <BookingModal
+                handleAddcategory={handleAddBooking}
+                user={user}
+                currentItem={currentItem}
+                handleSubmit={handleSubmit}
+                register={register}
+                errors={errors}
+              ></BookingModal>
+            )}
           </div>
         </section>
       </div>

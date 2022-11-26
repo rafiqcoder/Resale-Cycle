@@ -5,28 +5,15 @@ import { Link } from 'react-router-dom';
 import Spinner from '../../../Components/Spinner/Spinner';
 import { UserContext } from '../../../Context/Context';
 
-const AllBuyers = () => {
-  const { user } = useContext(UserContext);
+const ReportedItems = () => {
+   const { user } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
 
 
-    
-  
-
-  const {
-    data: users = [],
-    refetch,
-    
-  } = useQuery({
-    queryKey: ["user"],
-  
+  const { data: reports = [], refetch } = useQuery({
+    queryKey: ["reports"],
     queryFn: async () => {
-      const res = await fetch(
-        `http://localhost:5000/allbuyers?email=${user?.email}`,
-        {
-          headers: { authorization: `Barear ${localStorage.getItem("token")}` },
-        }
-      );
+      const res = await fetch(`http://localhost:5000/reports`);
       const data = await res.json();
       setLoading(false);
       return data;
@@ -37,7 +24,7 @@ const AllBuyers = () => {
   }
   
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/allbuyers/${id}`, {
+    fetch(`http://localhost:5000/reports/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -189,4 +176,4 @@ const AllBuyers = () => {
     );
 };
 
-export default AllBuyers;
+export default ReportedItems;

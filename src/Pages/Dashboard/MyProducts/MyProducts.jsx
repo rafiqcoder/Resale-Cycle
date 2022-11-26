@@ -1,25 +1,166 @@
-import React from 'react';
+import axios from 'axios';
+import React,{ useContext,useEffect,useState } from 'react';
+import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
+import Spinner from '../../../Components/Spinner/Spinner';
+import { UserContext } from '../../../Context/Context';
 
 const MyProducts = () => {
-    return (
-      <div>
-        <div class="w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-          <img
-            class="object-cover w-full h-56"
-            src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-            alt="avatar"
-          />
+  // const { currentUser } = useContext(DataContext);
+  const { user } = useContext(UserContext)
+  const [loading,setLoading] = useState(true);
+  const [refresh,setRefresh] = useState(false);
+    
+    const [products, setProducts] = useState([]);
+    useEffect(() => {
+      axios
+        .get(`http://localhost:5000/my-products?email=${user?.email}`)
+        .then((data) => {
+          // console.log(data.data);
+          setProducts(data.data);
+          setLoading(false);
+        });
+    },[user,refresh]);
+  
+      if (loading) {
+        return <Spinner></Spinner>;
+      }
 
-          <div class="py-5 text-center">
-            <button
-              class="block text-2xl font-bold text-gray-800 dark:text-white"
-              tabindex="0"
-            >
-              John Doe
-            </button>
-            <span class="text-sm text-gray-700 dark:text-gray-200">
-              Software Engineer
-            </span>
+      const handleDelete = (id) => {
+        fetch(`http://localhost:5000/my-products/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              toast.success("deleted successfuly");
+              setRefresh(!refresh);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            setLoading(false);
+          });
+      };
+  const handleAdvertise = (id) => {
+    const choosedProduct = products.find((product) => product._id === id);
+  
+    console.log(choosedProduct);
+        fetch(`http://localhost:5000/advertise`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(choosedProduct),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.acknowledged) {
+              toast.success("Product added to advertised successfuly");
+              
+            } else{
+              toast.success("Product is already advertised");
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+           
+          });
+      };
+    // console.log(products);
+    return (
+      <div className="container px-4 sm:px-8 max-w-3xl flex justify-left items-base mt-10 content-left overflow-x-auto">
+        <div className="py-8">
+          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+            <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+              <table className="min-w-full leading-normal">
+                <thead>
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    >
+                      User
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    >
+                      Role
+                    </th>
+
+                    <th
+                      scope="col"
+                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    >
+                      status
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    >
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map((product) => (
+                    <tr key={product._id}>
+                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <div className="flex items-center">
+                          <div className="flex-shrink-0">
+                            <Link className="block relative">
+                              <img
+                                alt="profil"
+                                src={product?.img}
+                                className="mx-auto object-cover rounded-full h-10 w-10 "
+                              />
+                            </Link>
+                          </div>
+                          <div className="ml-3">
+                            <p className="text-gray-900 whitespace-no-wrap">
+                              {product.name}
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <p
+                          className="text-gray-900 whitespace-no-wrap bg-green-300 px-1 rounded-full"
+                          onClick={() => handleAdvertise(product._id)}
+                        >
+                          Advertise
+                        </p>
+                      </td>
+
+                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                          <span
+                            aria-hidden="true"
+                            className="absolute inset-0 bg-orange-200 opacity-50 rounded-full"
+                          ></span>
+                          <span className="relative">Unsold</span>
+                        </span>
+                      </td>
+                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                          <span
+                            aria-hidden="true"
+                            className="absolute inset-0 bg-red-200 opacity-50 rounded-full"
+                          ></span>
+                          <Link
+                            className="relative"
+                            onClick={() => handleDelete(product._id)}
+                          >
+                            delete
+                          </Link>
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

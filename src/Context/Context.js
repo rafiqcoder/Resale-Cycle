@@ -14,12 +14,16 @@ const Context = ({ children }) => {
     const [user,setUser] = useState([]);
     const [loading,setLoading] = useState(true);
     const [userEmail,setUserEmail] = useState('')
+    const [userData,setUserData] = useState([]);
+    const [currentUser,setCurrentUser] = useState(
+        userData?.find((eachUser) => eachUser.email === user?.email)
+    );
   
     const auth = getAuth(app)
 
     const Provider = new GoogleAuthProvider();
 
-    const [userData,setUserData] = useState([]);
+
     // console.log(userData);
 
     useEffect(() => {
@@ -51,7 +55,7 @@ const Context = ({ children }) => {
             photoURL: photo
         })
     }
-    console.log(user);
+    // console.log(user);
     const logOut = () => {
         setLoading(true);
         return signOut(auth)
@@ -98,7 +102,7 @@ const Context = ({ children }) => {
     };
 
 
-    const dataInfo = { userData }
+    const dataInfo = { currentUser,setCurrentUser }
 
     const userInfo = {
         loginWithGoogle,

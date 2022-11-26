@@ -8,27 +8,28 @@ import UseTitle from '../../hooks/UseTitle';
 import UseToken from '../../hooks/UseToken';
 
 const Login = () => {
+  const [loadLoging,setLoadLoging] = useState(false);
   const { loginWithGoogle, loginWithEmail,saveUserToDb } = useContext(UserContext);
   const { register,formState: { errors },handleSubmit } = useForm();
+  const { error,setError } = useState('');
+  const location = useLocation();
+  const navigate = useNavigate();
   const [userEmail,setUserEmail] = useState('')
   const [token]=UseToken(userEmail)
-  const { error,setError } = useState('');
-   const location = useLocation();
-    const navigate = useNavigate();
+  const [data,setData] = useState([])
 
-    const from = location.state?.from?.pathname || "/";
+    const from = location.state?.from?.pathname || "/home";
 
   if (token) {
-    navigate(from ,{replace: true});
+    
+    return navigate(from ,{replace: true});
   }
 
 
   // loading state
-  const [loadLoging,setLoadLoging] = useState(false);
   
   UseTitle('Login');
 
-  const [data,setData] = useState([])
 
   // conditonal rendering loading for login
   if (loadLoging) {

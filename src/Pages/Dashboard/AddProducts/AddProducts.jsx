@@ -9,10 +9,8 @@ import UseTitle from '../../../hooks/UseTitle';
 const AddProducts = () => {
     const {user} = useContext(UserContext);
   const [date,setDate] = useState(new Date())
-  const { userData } = useContext(DataContext);
-  const [currentUser, setCurrentUser] = useState(
-    userData?.find((eachUser) => eachUser.email === user?.email)
-  );
+  const { currentUser } = useContext(DataContext);
+  
   // console.log(currentUser);
     const {
       register,
@@ -119,7 +117,7 @@ const AddProducts = () => {
           </label>
           <textarea
             {...register("desc", {
-              required: "Product Description is required",
+              required: "Product Description is required", 
             })}
             className="textarea h-24 textarea-bordered"
             placeholder="Short Description"
