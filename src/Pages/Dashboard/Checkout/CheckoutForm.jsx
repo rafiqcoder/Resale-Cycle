@@ -1,13 +1,15 @@
 import { CardElement,useElements,useStripe } from "@stripe/react-stripe-js";
-import React,{ useEffect,useState } from "react";
+import React,{ useContext, useEffect,useState } from "react";
 import toast from "react-hot-toast";
+import Spinner from "../../../Components/Spinner/Spinner";
 
 const CheckoutForm = ({data}) => {
     const [cardError,setCardError] = useState("");
     const [success,setSuccess] = useState('')
     const [transectionId, setTransectionId] = useState("");
   const stripe = useStripe();
-    const elements = useElements();
+  const elements = useElements();
+  const [loading,setLoading] = useState(false);
       const {  salePrice,  buyerName, buyerEmail, itemName,_id,sellerEmail,product_id } = data;
   console.log(salePrice);
      const [clientSecret, setClientSecret] = useState("");
@@ -31,9 +33,8 @@ const CheckoutForm = ({data}) => {
          })
      }, [salePrice]);
 
-
     const handleSubmit = async (event) => {
-    
+
     // Block native form submission.
     event.preventDefault();
 
@@ -58,8 +59,10 @@ const CheckoutForm = ({data}) => {
         setCardError(error.message)
          if (error.type === "card_error" || error.type === "validation_error") {
            setCardError(error.message);
+         
          } else {
            setCardError("An unexpected error occurred.");
+          
          }
     } else {
         console.log("[PaymentMethod]",paymentMethod);
@@ -81,11 +84,13 @@ const CheckoutForm = ({data}) => {
          }
         );
         if (ConfirmError) {
-            setCardError(ConfirmError.message);
-            return;
+          setCardError(ConfirmError.message);
+         
+          return;
         }
         if (paymentIntent.status==='succeeded') {
-            setSuccess('Congrates ! Your payment completed')
+         
+          setSuccess('Congrates ! Your payment completed')
           setTransectionId(paymentIntent.id)
           const payment = {
             buyerName,
@@ -107,15 +112,19 @@ const CheckoutForm = ({data}) => {
              .then((res) => res.json())
              .then((data) => {
                console.log(data);
-               toast.success("Payment Successfull");
                setClientSecret(data.clientSecret);
+            
+               toast.success("Payment Successfull");
              })
              .catch((err) => {
                console.log(err);
+            
              });
         }
-        console.log('paymentIntent',paymentIntent);
+      console.log('paymentIntent',paymentIntent);
+      // setLoading(false);
   };
+
   return (
       <form onSubmit={handleSubmit}>
           <h2 className="text-lg font-semibold mb-5">Product: {itemName}</h2>

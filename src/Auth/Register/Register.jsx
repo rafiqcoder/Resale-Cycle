@@ -54,12 +54,31 @@ const Register = () => {
       
       .then((res) => {
               console.log(data.name, data.img + "line 63");
-        updateNameAndPhoto(data.name, data.img).then((result) => {
-          setLoading(false);
+        updateNameAndPhoto(data.name,data.img)
+          .then((result) => {
+          
+         
             console.log(data.name, data.img+'line 67');
           saveUserToDb(data.name, data.email,data.img, data.userType);
-        });
-        setLoading(false);
+          })
+        const email = res.user.email;
+        //getting jwt token from backend and setting it in localstorage
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            // seting loading to false
+            setLoading(false);
+            // setting jwt token in localstorage
+            localStorage.setItem("auth-token", data.token);
+            toast.success("jwt Successfull");
+          });
+       
       
         toast.success("Register Successfully");
       })

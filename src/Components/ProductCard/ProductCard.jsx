@@ -62,7 +62,7 @@ const ProductCard = ({ children,item }) => {
                 {item.location}
               </p>
               <p className="text-sm font-medium text-black">
-               Purchased on {item.purchaseYear}
+               Purchased on {item?.purchaseYear}
               </p>
               <p className="text-sm font-medium text-black">
                 {item.usedTime} Year used

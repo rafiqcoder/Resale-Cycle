@@ -18,16 +18,14 @@ const AdvertiseSection = ({ products, refresh, setRefresh }) => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const [loading, setLoading] = useState(false);
+
   //seting title
   UseTitle("Add Category");
 
-  if (loading) {
-    return <Spinner></Spinner>;
-  }
+
 
   const handleAddBooking = (data) => {
-    setLoading(true);
+
     data.buyerEmail = user.email;
     data.buyerName = user.displayName;
     data.itemName = currentItem.name;
@@ -54,16 +52,16 @@ const AdvertiseSection = ({ products, refresh, setRefresh }) => {
           setCurrentItem(null);
           toast.success("Product Booked Successfully");
           setRefresh(!refresh);
-          setLoading(false);
+      
         } else {
           setCurrentItem(null);
-          setLoading(false);
+         
           toast.error('this product is already booked');
         }
       })
       .catch((err) => {
         console.log(err);
-        setLoading(false);
+       
       });
   };
   const handleReport = (item) => {

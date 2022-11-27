@@ -36,7 +36,7 @@ const AllBuyers = () => {
   const handleDelete = (id) => {
      const agree = window.confirm("Are you sure to delete this Buyer?");
     if (agree) {
-    fetch(`http://localhost:5000/allbuyers/${id}`, {
+    fetch(`http://localhost:5000/allbuyers/${id}?email=${user?.email}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

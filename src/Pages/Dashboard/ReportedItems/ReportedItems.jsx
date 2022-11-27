@@ -24,19 +24,23 @@ const ReportedItems = () => {
   }
   
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/report/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deletedCount > 0) {
-          toast.success("deleted successfuly");
-          refetch();
-        }
+    const agree = window.confirm("Are you sure to delete this report?");
+    if (agree) {
+      
+      fetch(`http://localhost:5000/report/${id}`, {
+        method: "DELETE",
       })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            toast.success("deleted successfuly");
+            refetch();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
     };
     console.log(reports);
   // const handleRoleToAdmin = (id) => {
