@@ -13,7 +13,7 @@ const Checkout = () => {
 
   const navigation = useNavigation();
   if (navigation.state ==='loading') {
-    <Spinner></Spinner>
+    return <Spinner></Spinner>
   }
 
 

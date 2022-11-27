@@ -1,7 +1,7 @@
 import React,{ useContext,useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData,useLocation,useNavigate } from 'react-router-dom';
 import BookingModal from '../../Components/BookingModal/BookingModal';
 import CatBanner from '../../Components/CatBanner/CatBanner';
 import ProductCard from '../../Components/ProductCard/ProductCard';
@@ -25,11 +25,23 @@ const CategoryPage = () => {
  const [loading, setLoading] = useState(false);
  //seting title
  UseTitle("Add Category");
-
+  const navigate = useNavigate();
+  const location = useLocation();
  if (loading) {
    return <Spinner></Spinner>;
  }
-
+const handleBook = (item) => {
+      if (user === null) {
+        return (
+         navigate('/login',{state: {from: location},replace: true})
+        );
+      }
+   
+   
+      setCurrentItem(item);
+    
+    
+  }
  const handleAddBooking = (data) => {
    setLoading(true);
  
@@ -123,11 +135,11 @@ const agree = window.confirm("Are you sure to report this product?");
             </h1>
             <div class="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 lg:grid-cols-3">
               {products.map((item) => (
-                <ProductCard children item={item}>
+                <ProductCard children item={item} key={item._id}>
                   <label
                     htmlFor="my-modal"
                     className="btn btn-success mt-5"
-                    onClick={() => setCurrentItem(item)}
+                    onClick={() => handleBook(item)}
                   >
                     {" "}
                     Book Now

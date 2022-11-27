@@ -51,10 +51,11 @@ const MyProducts = () => {
     const choosedProduct = products.find((product) => product._id === id);
       // choosedProduct.status = 'advertise';
     // console.log(choosedProduct);
-        fetch(`http://localhost:5000/advertise`, {
+        fetch(`http://localhost:5000/advertise?email=${user?.email}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify(choosedProduct),
         })

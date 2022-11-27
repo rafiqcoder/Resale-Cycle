@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import moment from "moment";
 import React,{ useContext,useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -6,15 +7,15 @@ import { useNavigate } from "react-router-dom";
 import Spinner from '../../../Components/Spinner/Spinner';
 import { DataContext,UserContext } from '../../../Context/Context';
 import UseTitle from '../../../hooks/UseTitle';
-
 const AddProducts = () => {
     const {user} = useContext(UserContext);
   const [date,setDate] = useState(new Date())
   const { currentUser } = useContext(DataContext);
   const navigate = useNavigate();
+  const time = moment().format("MMM Do YYYY, h:mm:ss a");
   const year = format(date,"yyyy");
-  console.log(year);
-  console.log(currentUser);
+
+  // console.log(time);
     const {
       register,
       formState: { errors },
@@ -28,8 +29,7 @@ const AddProducts = () => {
         return <Spinner></Spinner>
     }
     
-    const postingDate = format(date, "PP");
-    
+
     const handleAddProduct = (data) => {
 
     setRefresh(true);
@@ -40,15 +40,16 @@ const AddProducts = () => {
     const verified = currentUser.verified;
         const sellerImage = currentUser.img;
       const email = currentUser.email;
+      
       const usedTime = year - data.purchaseYear;
-      console.log(usedTime+" years");
+    
     const product = {
       ...data,
       sellerName,
       verified,
       sellerImage,
       email,
-      postingDate,
+      postingDate:time,
       usedTime,
     };
      
@@ -242,8 +243,8 @@ const AddProducts = () => {
             >
               <option value="">Select...</option>
               <option value="2022">2022</option>
-              <option value="2019">2021</option>
-              <option value="2019">2020</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
               <option value="2019">2019</option>
               <option value="2018">2018</option>
               <option value="2017">2017</option>

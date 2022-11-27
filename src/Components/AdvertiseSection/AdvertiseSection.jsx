@@ -1,7 +1,7 @@
 import React,{ useContext,useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import Spinner from '../../Components/Spinner/Spinner';
+import { Navigate,useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../Context/Context';
 import UseTitle from '../../hooks/UseTitle';
 import BookingModal from '../BookingModal/BookingModal';
@@ -18,51 +18,64 @@ const AdvertiseSection = ({ products, refresh, setRefresh }) => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-
+  const location = useLocation();
   //seting title
   UseTitle("Add Category");
 
+  const navigate = useNavigate();
 
-
+console.log(user);
+  const handleBook = (item) => {
+      if (user === null) {
+        return (
+         navigate('/login',{state: {from: location},replace: true})
+        );
+      }
+   
+   
+      setCurrentItem(item);
+    
+    
+  }
   const handleAddBooking = (data) => {
+    
+      data.buyerEmail = user.email;
+      data.buyerName = user.displayName;
+      data.itemName = currentItem.name;
+      data.itemImg = currentItem.img;
+      data.condition = currentItem.condition;
+      data.sellerLocation = currentItem.location;
+      data.sellerEmail = currentItem.email;
+      data.sellerName = currentItem.sellerName;
+      data.salePrice = currentItem.sellPrice;
+      data.product_id = currentItem._id;
+      data.status = "pending";
 
-    data.buyerEmail = user.email;
-    data.buyerName = user.displayName;
-    data.itemName = currentItem.name;
-    data.itemImg = currentItem.img;
-    data.condition = currentItem.condition;
-    data.sellerLocation = currentItem.location;
-    data.sellerEmail = currentItem.email;
-    data.sellerName = currentItem.sellerName;
-    data.salePrice = currentItem.sellPrice;
-    data.product_id = currentItem._id;
-    data.status = "pending";
+      fetch(`http://localhost:5000/booking?email=${user.email}`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
 
-    fetch(`http://localhost:5000/booking?email=${user.email}`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.acknowledged) {
-          setCurrentItem(null);
-          toast.success("Product Booked Successfully");
-          setRefresh(!refresh);
-      
-        } else {
-          setCurrentItem(null);
-         
-          toast.error('this product is already booked');
-        }
+        body: JSON.stringify(data),
       })
-      .catch((err) => {
-        console.log(err);
-       
-      });
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            setCurrentItem(null);
+            toast.success("Product Booked Successfully");
+            setRefresh(!refresh);
+          } else {
+            setCurrentItem(null);
+
+            toast.error("this product is already booked");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+   
+    
   };
   const handleReport = (item) => {
     const agree = window.confirm("Are you sure to report this product?");
@@ -95,12 +108,12 @@ const AdvertiseSection = ({ products, refresh, setRefresh }) => {
         </h1>
         <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 lg:grid-cols-3">
           {products.map((item) => (
-            <ProductCard children item={item}>
+            <ProductCard children item={item} key={item._id}>
               <label
               
                 htmlFor="my-modal"
                 className="btn btn-success mt-5"
-                onClick={() => setCurrentItem(item)}
+                onClick={()=>handleBook(item)}
               >
                
                 Book Now

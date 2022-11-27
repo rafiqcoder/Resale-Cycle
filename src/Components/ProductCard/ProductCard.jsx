@@ -19,9 +19,8 @@ const ProductCard = ({ children,item }) => {
                   tabindex="0"
                   role="link"
                 >
-                  <div>{item.sellerName}</div>
-                  <div className="text-sm font-normal flex">
-                    {item.postingDate}
+                  <div className='flex'>
+                    {item.sellerName}{" "}
                     {item.verified && (
                       <div className="flex items-center ml-6 justify-center w-4 h-4 rounded-md border  border-blue-600 text-blue-500">
                         <svg
@@ -40,6 +39,9 @@ const ProductCard = ({ children,item }) => {
                         </svg>
                       </div>
                     )}
+                  </div>
+                  <div className="text-sm font-normal flex">
+                    {item.postingDate}
                   </div>
                 </div>
               </div>
@@ -62,7 +64,7 @@ const ProductCard = ({ children,item }) => {
                 {item.location}
               </p>
               <p className="text-sm font-medium text-black">
-               Purchased on {item?.purchaseYear}
+                Purchased on {item?.purchaseYear}
               </p>
               <p className="text-sm font-medium text-black">
                 {item.usedTime} Year used

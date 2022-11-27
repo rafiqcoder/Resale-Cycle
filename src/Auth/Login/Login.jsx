@@ -44,8 +44,8 @@ const Login = () => {
     .then((result) => {
      
       toast.success('Login Successfully');
-      setUserEmail(result.user.email,result.user.name);
-      console.log(result.user.email, result.user.name);
+      setUserEmail(result.user.email);
+      // console.log(result.user.email, result.user.name);
      
       
     })

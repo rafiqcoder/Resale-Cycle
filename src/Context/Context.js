@@ -16,7 +16,7 @@ const Context = ({ children }) => {
     const [userEmail,setUserEmail] = useState('')
     const [userData,setUserData] = useState([]);
     const [currentUser,setCurrentUser] = useState([]);
-    console.log(currentUser);
+    // console.log(currentUser);
     const auth = getAuth(app)
 
     const Provider = new GoogleAuthProvider();
@@ -34,7 +34,7 @@ const Context = ({ children }) => {
                 // handle error
                 console.log(error);
             });
-    },[]);
+    },[setUserData]);
 
     const loginWithGoogle = () => {
         setLoading(true);
@@ -73,13 +73,14 @@ const Context = ({ children }) => {
 
 
     const saveUserToDb = (name,email,img,userType) => {
+
         let verified;
         if (userType === 'seller') {
             verified = false;
         }
 
         const user = { name,email,img,userType,verified };
-
+        console.log(user+'context 83');
         fetch(`http://localhost:5000/users`,{
             method: "POST",
             headers: {
@@ -91,8 +92,7 @@ const Context = ({ children }) => {
             .then((data) => {
                 if (data.insertedId) {
                     // getUserToken(user.email);
-                    setUserEmail(user.email);
-                    toast.success("User added successfully");
+                    setUserEmail(user?.email);
                 }
 
             }).catch((err) => {

@@ -14,11 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/advertise?email=${user?.email}`, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .get(`http://localhost:5000/advertise`)
       .then((data) => {
         setAdvertisedProducts(data.data);
       })

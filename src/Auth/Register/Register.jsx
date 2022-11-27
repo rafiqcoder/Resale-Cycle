@@ -10,7 +10,7 @@ import UseToken from '../../hooks/UseToken';
 
 const Register = () => {
   // geting firebase register function from context
-  const { registerWithPassword, updateNameAndPhoto, userEmail, saveUserToDb } =
+  const { registerWithPassword,updateNameAndPhoto,userEmail, saveUserToDb } =
     useContext(UserContext);
     const {
       register,
@@ -26,7 +26,7 @@ const Register = () => {
   const from = location.state?.from?.pathname || "/";
   const [token]=UseToken(userEmail)
   if (token) {
-    navigate(from ,{replace: true});
+   return navigate(from ,{replace: true});
   }
   // getting location from react-router-dom
 
@@ -57,11 +57,10 @@ const Register = () => {
         updateNameAndPhoto(data.name,data.img)
           .then((result) => {
           
-         
-            console.log(data.name, data.img+'line 67');
+   
           saveUserToDb(data.name, data.email,data.img, data.userType);
           })
-        const email = res.user.email;
+        const email = data.email;
         //getting jwt token from backend and setting it in localstorage
         fetch("http://localhost:5000/jwt", {
           method: "POST",
@@ -77,9 +76,13 @@ const Register = () => {
             // setting jwt token in localstorage
             localStorage.setItem("auth-token", data.token);
             toast.success("jwt Successfull");
+          })
+          .catch((err) => {
+            console.log(err);
+             setLoading(false);
           });
        
-      
+          
         toast.success("Register Successfully");
       })
       .catch((err) => {
