@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import React,{ useContext,useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
 import Spinner from '../../../Components/Spinner/Spinner';
 import { DataContext,UserContext } from '../../../Context/Context';
 import UseTitle from '../../../hooks/UseTitle';
@@ -10,8 +11,10 @@ const AddProducts = () => {
     const {user} = useContext(UserContext);
   const [date,setDate] = useState(new Date())
   const { currentUser } = useContext(DataContext);
-  
-  // console.log(currentUser);
+  const navigate = useNavigate();
+  const year = format(date,"yyyy");
+  console.log(year);
+  console.log(currentUser);
     const {
       register,
       formState: { errors },
@@ -36,7 +39,9 @@ const AddProducts = () => {
     // const price = form.price.value;
     const verified = currentUser.verified;
         const sellerImage = currentUser.img;
-        const email = currentUser.email;
+      const email = currentUser.email;
+      const usedTime = year - data.purchaseYear;
+      console.log(usedTime+" years");
     const product = {
       ...data,
       sellerName,
@@ -44,8 +49,9 @@ const AddProducts = () => {
       sellerImage,
       email,
       postingDate,
+      usedTime,
     };
-        console.log(product);
+     
     // inserting new Product
     fetch("http://localhost:5000/add-Product", {
       method: "POST",
@@ -57,6 +63,7 @@ const AddProducts = () => {
         if (data.acknowledged) {
           toast.success("Product Added Successfully");
           setRefresh(false);
+            navigate('/my-products')
         }
        
       })
@@ -117,7 +124,7 @@ const AddProducts = () => {
           </label>
           <textarea
             {...register("desc", {
-              required: "Product Description is required", 
+              required: "Product Description is required",
             })}
             className="textarea h-24 textarea-bordered"
             placeholder="Short Description"
@@ -227,18 +234,28 @@ const AddProducts = () => {
         <div className="flex gap-3 justify-between">
           <div className="form-control w-full">
             <label className="label">
-              <span className="label-text">Years of use</span>
+              <span className="label-text">Year of Purchase</span>
             </label>
-            <input
-              type="number"
-              {...register("usedTime", { required: "Used Time is required" })}
-              placeholder="Years of use"
-              className="input input-bordered"
-            />
+            <select
+              {...register("purchaseYear", { required: "Purchase Year is required" })}
+              className="border p-3 rounded-lg"
+            >
+              <option value="">Select...</option>
+              <option value="2022">2022</option>
+              <option value="2019">2021</option>
+              <option value="2019">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+              <option value="2016">2016</option>
+              <option value="2015">2015</option>
+              <option value="2014">2014</option>
+              <option value="2013">2013</option>
+            </select>
           </div>
-          {errors.usedTime && (
+          {errors.purchaseYear && (
             <p role="alert" className="text-red-500 text-xs font-medium mt-2">
-              {errors.usedTime?.message}
+              {errors.purchaseYear?.message}
             </p>
           )}
           <div className="form-control w-full">

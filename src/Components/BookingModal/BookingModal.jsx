@@ -158,7 +158,7 @@ errors
                   type="submit"
                   className="btn btn-primary"
                 >
-                  Book
+                  Submit
                 </button>
             
             </form>

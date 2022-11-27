@@ -9,88 +9,102 @@ import ProductCard from '../ProductCard/ProductCard';
 
 
 
-const AdvertiseSection = ({products}) => {
+     
+const AdvertiseSection = ({ products, refresh, setRefresh }) => {
+  const { user } = useContext(UserContext);
+  const [currentItem, setCurrentItem] = useState(null);
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+  const [loading, setLoading] = useState(false);
+  //seting title
+  UseTitle("Add Category");
 
-  const {user}=useContext(UserContext)
-  const [currentItem,setCurrentItem] = useState(null);
- const {
-   register,
-   formState: { errors },
-   handleSubmit,
- } = useForm();
- const [loading, setLoading] = useState(false);
- //seting title
- UseTitle("Add Category");
+  if (loading) {
+    return <Spinner></Spinner>;
+  }
 
- if (loading) {
-   return <Spinner></Spinner>;
- }
-
- const handleAddBooking = (data) => {
+  const handleAddBooking = (data) => {
     setLoading(true);
-   data.buyerEmail = user.email;
-   data.buyerName = user.displayName;
-      data.itemName = currentItem.name;
-      data.itemImg = currentItem.img;
-      data.condition = currentItem.condition;
-      data.sellerLocation = currentItem.location;
-      data.sellerEmail = currentItem.email;
-      data.sellerName = currentItem.sellerName;
-   data.salePrice = currentItem.sellPrice;
-  
-   fetch("http://localhost:5000/booking", {
-     method: "POST",
-     headers: { "content-type": "application/json" },
-     body: JSON.stringify(data),
-   })
-     .then((res) => res.json())
-     .then((data) => {
-       if (data.acknowledged) {
-          setCurrentItem(null);
-         toast.success("Category Added Successfully");
-          setLoading(false);
-        }
-     })
-     .catch((err) => {
-        console.log(err);
-        setLoading(false);
-     });
+    data.buyerEmail = user.email;
+    data.buyerName = user.displayName;
+    data.itemName = currentItem.name;
+    data.itemImg = currentItem.img;
+    data.condition = currentItem.condition;
+    data.sellerLocation = currentItem.location;
+    data.sellerEmail = currentItem.email;
+    data.sellerName = currentItem.sellerName;
+    data.salePrice = currentItem.sellPrice;
+    data.product_id = currentItem._id;
+    data.status = "pending";
 
-  };
-  const handleReport = (item) => {
-     item.reporterEmail = user.email;
-     item.reporterName = user.displayName;
-  
-    fetch("http://localhost:5000/report", {
+    fetch(`http://localhost:5000/booking?email=${user.email}`, {
       method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(item),
+      headers: {
+        "content-type": "application/json"
+      },
+      
+      body: JSON.stringify(data),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
-          toast.success("Reported successfully");
+          setCurrentItem(null);
+          toast.success("Product Booked Successfully");
+          setRefresh(!refresh);
+          setLoading(false);
+        } else {
+          setCurrentItem(null);
+          setLoading(false);
+          toast.error('this product is already booked');
         }
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
-  }
+  };
+  const handleReport = (item) => {
+    const agree = window.confirm("Are you sure to report this product?");
+    if (agree) {
+      item.reporterEmail = user.email;
+      item.reporterName = user.displayName;
+
+      fetch("http://localhost:5000/report",{
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(item),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            toast.success("Reported successfully");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   return (
-    <section class="bg-white dark:bg-gray-900 my-20">
-      <div class="container px-6 py-10 mx-auto">
-        <h1 class="text-3xl font-semibold text-center text-gray-800 capitalize lg:text-4xl dark:text-white">
+    <section className="bg-white dark:bg-gray-900 my-20">
+      <div className="container px-6 py-10 mx-auto">
+        <h1 className="text-3xl font-semibold text-center text-gray-800 capitalize lg:text-4xl dark:text-white">
           Advertised Products
         </h1>
-        <div class="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 lg:grid-cols-3">
           {products.map((item) => (
             <ProductCard children item={item}>
               <label
+              
                 htmlFor="my-modal"
                 className="btn btn-success mt-5"
                 onClick={() => setCurrentItem(item)}
               >
+               
                 Book Now
               </label>
               <div

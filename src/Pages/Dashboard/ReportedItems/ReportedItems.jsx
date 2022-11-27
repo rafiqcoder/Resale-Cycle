@@ -13,7 +13,7 @@ const ReportedItems = () => {
   const { data: reports = [], refetch } = useQuery({
     queryKey: ["reports"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/reports`);
+      const res = await fetch(`http://localhost:5000/report`);
       const data = await res.json();
       setLoading(false);
       return data;
@@ -24,7 +24,7 @@ const ReportedItems = () => {
   }
   
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/reports/${id}`, {
+    fetch(`http://localhost:5000/report/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -37,7 +37,8 @@ const ReportedItems = () => {
       .catch((error) => {
         console.log(error);
       });
-  };
+    };
+    console.log(reports);
   // const handleRoleToAdmin = (id) => {
   //   fetch(`http://localhost:5000/users/admin/${id}?email=${user.email}`, {
   //     method: "PATCH",
@@ -86,26 +87,21 @@ const ReportedItems = () => {
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
-                      User
+                      Product Img
                     </th>
                     <th
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
-                      Role
+                      Seller
                     </th>
                     <th
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
-                      Created at
+                     Reporter
                     </th>
-                    <th
-                      scope="col"
-                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                    >
-                      status
-                    </th>
+                   
                     <th
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
@@ -115,52 +111,44 @@ const ReportedItems = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user) => (
-                    <tr key={user._id}>
+                  {reports.map((item) => (
+                    <tr key={item._id}>
                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <div className="flex items-center">
                           <div className="flex-shrink-0">
                             <Link className="block relative">
                               <img
                                 alt="profil"
-                                src={user?.img}
-                                className="mx-auto object-cover rounded-full h-10 w-10 "
+                                src={item?.img}
+                                className="mx-auto object-cover  h-16 w-16 "
                               />
                             </Link>
                           </div>
+                          </div>
+                      </td>
+                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        
                           <div className="ml-3">
                             <p className="text-gray-900 whitespace-no-wrap">
-                              {user.name}
+                              {item.sellerName}
                             </p>
                           </div>
-                        </div>
+                        
                       </td>
                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p className="text-gray-900 whitespace-no-wrap bg-green-300 px-1 rounded-full">
-                          {user.userType}
+                          {item.reporterName}
                         </p>
                       </td>
-                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p className="text-gray-900 whitespace-no-wrap">
-                          12/09/2020
-                        </p>
-                      </td>
-                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                          <span
-                            aria-hidden="true"
-                            className="absolute inset-0 bg-orange-200 opacity-50 rounded-full"
-                          ></span>
-                          <span className="relative">Make Admin</span>
-                        </span>
-                      </td>
+                      
+                      
                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                           <span
                             aria-hidden="true"
                             className="absolute inset-0 bg-red-200 opacity-50 rounded-full"
                           ></span>
-                          <Link className="relative" onClick={()=>handleDelete(user._id)}>
+                          <Link className="relative" onClick={()=>handleDelete(item._id)}>
                             delete
                           </Link>
                         </span>

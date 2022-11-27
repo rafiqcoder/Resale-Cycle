@@ -23,7 +23,7 @@ const ProductCard = ({ children,item }) => {
                   <div className="text-sm font-normal flex">
                     {item.postingDate}
                     {item.verified && (
-                      <div className="flex items-center ml-6 justify-center w-4 h-4 rounded-md border border-green-600 text-green-500">
+                      <div className="flex items-center ml-6 justify-center w-4 h-4 rounded-md border  border-blue-600 text-blue-500">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -58,6 +58,15 @@ const ProductCard = ({ children,item }) => {
               role="link"
             >
               {item.name}
+              <p className="text-sm font-medium text-orange-400">
+                {item.location}
+              </p>
+              <p className="text-sm font-medium text-black">
+               Purchased on {item.purchaseYear}
+              </p>
+              <p className="text-sm font-medium text-black">
+                {item.usedTime} Year used
+              </p>
             </div>
             <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
               {item.desc.slice(0, 100) + "..."}
@@ -73,8 +82,8 @@ const ProductCard = ({ children,item }) => {
                   Tk
                 </h2>
                 <h2 className="font-semibold">
-                  Sale Price:{" "}
-                  <span className="text-orange-500">{item.orginalPrice}</span>
+                  Resale Price:{" "}
+                  <span className="text-orange-500">{item.sellPrice}</span>
                   Tk
                 </h2>
               </div>

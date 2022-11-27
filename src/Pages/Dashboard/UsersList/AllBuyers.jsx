@@ -10,9 +10,6 @@ const AllBuyers = () => {
   const [loading, setLoading] = useState(true);
 
 
-    
-  
-
   const {
     data: users = [],
     refetch,
@@ -37,6 +34,8 @@ const AllBuyers = () => {
   }
   
   const handleDelete = (id) => {
+     const agree = window.confirm("Are you sure to delete this Buyer?");
+    if (agree) {
     fetch(`http://localhost:5000/allbuyers/${id}`, {
       method: "DELETE",
     })
@@ -50,6 +49,7 @@ const AllBuyers = () => {
       .catch((error) => {
         console.log(error);
       });
+       }
   };
   // const handleRoleToAdmin = (id) => {
   //   fetch(`http://localhost:5000/users/admin/${id}?email=${user.email}`, {

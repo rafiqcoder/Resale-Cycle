@@ -1,9 +1,9 @@
 
+import axios from 'axios';
 import { createUserWithEmailAndPassword,getAuth,GoogleAuthProvider,onAuthStateChanged,signInWithEmailAndPassword,signInWithPopup,signOut,updateProfile } from "firebase/auth";
 import React,{ createContext,useEffect,useState } from 'react';
 import toast from "react-hot-toast";
 import { app } from '../Firebase/Firebase.config';
-import axios from 'axios';
 
 
 export const DataContext = createContext();
@@ -15,15 +15,15 @@ const Context = ({ children }) => {
     const [loading,setLoading] = useState(true);
     const [userEmail,setUserEmail] = useState('')
     const [userData,setUserData] = useState([]);
-    const [currentUser,setCurrentUser] = useState(
-        userData?.find((eachUser) => eachUser.email === user?.email)
-    );
-  
+    const [currentUser,setCurrentUser] = useState([]);
+    console.log(currentUser);
     const auth = getAuth(app)
 
     const Provider = new GoogleAuthProvider();
 
-
+    useEffect(() => {
+        setCurrentUser(userData?.find((eachUser) => eachUser?.email === user?.email))
+    },[userData,user])
     // console.log(userData);
 
     useEffect(() => {
@@ -70,7 +70,6 @@ const Context = ({ children }) => {
     },[auth])
 
     // console.log(userData);
-   
 
 
     const saveUserToDb = (name,email,img,userType) => {
@@ -106,7 +105,7 @@ const Context = ({ children }) => {
 
     const userInfo = {
         loginWithGoogle,
-        logOut,loginWithEmail,updateNameAndPhoto,registerWithPassword,user,loader: loading,loading,setLoading,userEmail,saveUserToDb
+        logOut,loginWithEmail,updateNameAndPhoto,registerWithPassword,user,loading,setLoading,userEmail,saveUserToDb
     }
     return (
         <UserContext.Provider value={userInfo}>

@@ -8,14 +8,17 @@ import CategoryPage from "../Pages/Categories/CategoryPage";
 import Foxter from "../Pages/Categories/Foxter";
 import Phonix from "../Pages/Categories/Phonix";
 import AddProducts from "../Pages/Dashboard/AddProducts/AddProducts";
+import Checkout from "../Pages/Dashboard/Checkout/Checkout";
 import Dashboard from "../Pages/Dashboard/Dashboard/Dashboard";
 import MyOrders from "../Pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../Pages/Dashboard/MyProducts/MyProducts";
+import ReportedItems from "../Pages/Dashboard/ReportedItems/ReportedItems";
 import AllBuyers from "../Pages/Dashboard/UsersList/AllBuyers";
 import AllSellers from "../Pages/Dashboard/UsersList/AllSellers";
 
 import Home from "../Pages/Home/Home/Home";
 import NotFound from "../Pages/NotFound/NotFound";
+import AdminRoutes from "./AdminRoutes";
 import PrivateRoute from "./PrivateRoute";
 
 
@@ -49,13 +52,7 @@ const router = createBrowserRouter([
                 path: '/:name/:id',element: <CategoryPage />,
                 loader: ({params}) => { return fetch(`http://localhost:5000/${params.name}/${params.id}`) }
             },
-            {
-                path: '/phonix',element: <Phonix />
-            },
-            {
-                path: '/foxter',element: <Foxter />
-            },
-
+            
             {
                 path: '*',element: <NotFound />
             },
@@ -71,13 +68,21 @@ const router = createBrowserRouter([
                 path: '/my-orders',element: <MyOrders />,
             },
             {
-                path: '/all-buyers',element: < AllBuyers />,
+                path: '/checkout/:id',element: <Checkout></Checkout>,
+                loader: ({ params }) => { return fetch(`http://localhost:5000/checkout/${params.id}`) },
             },
             {
-                path: '/all-sellers',element: < AllSellers />,
+                path: '/reports',element: <AdminRoutes> <ReportedItems /></AdminRoutes>,
             },
             {
-                path: '/add-categories',element: < AddCategories />,
+                path: '/all-buyers',element:<AdminRoutes> < AllBuyers /></AdminRoutes>,
+            },
+            {
+                path: '/all-sellers',element: <AdminRoutes>< AllSellers /></AdminRoutes>,
+            },
+
+            {
+                path: '/add-categories',element: <AdminRoutes>< AddCategories /></AdminRoutes>,
             },
             {
                 path: '/add-product',element: <AddProducts />,
@@ -85,9 +90,7 @@ const router = createBrowserRouter([
             {
                 path: '/my-products',element: <MyProducts />,
             },
-            {
-                path: '/addproduct',element: <AddProducts />,
-            },
+            
 
         ],
     },

@@ -29,7 +29,9 @@ const AllSellers = () => {
     if (loading) {
       return <Spinner></Spinner>;
     }
-      const handleDelete = (id) => {
+  const handleDelete = (id) => {
+     const agree = window.confirm("Are you sure to delete this Seller?");
+    if (agree) {
         fetch(`http://localhost:5000/allselllers/${id}`, {
           method: "DELETE",
         })
@@ -43,6 +45,7 @@ const AllSellers = () => {
           .catch((error) => {
             console.log(error);
           });
+           }
       };
       const handleVerify = (id) => {
         fetch(`http://localhost:5000/allselllers/${id}`, {
@@ -83,6 +86,12 @@ const AllSellers = () => {
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
+                      email
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    >
                       Created at
                     </th>
                     <th
@@ -113,11 +122,13 @@ const AllSellers = () => {
                               />
                             </Link>
                           </div>
-                          <div className="ml-3">
-                            <p className="text-gray-900 whitespace-no-wrap">
-                              {seller.name}
-                            </p>
-                          </div>
+                        </div>
+                      </td>
+                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <div className="">
+                          <p className="text-gray-900 whitespace-no-wrap">
+                            {seller.name}
+                          </p>
                         </div>
                       </td>
                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -127,21 +138,18 @@ const AllSellers = () => {
                       </td>
                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p className="text-gray-900 whitespace-no-wrap">
-                          12/09/2020
+                          {seller.email}
                         </p>
                       </td>
                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        
-                         
-                            <Link
-                            className={` inset-0 bg-${seller.verified ? "green" : "orange"}-200 rounded-full p-1 px-3`}
-                            onClick={() => handleVerify(seller._id)}
-                          >
-                            {seller.verified ? "verified" : "unverified"}
-                          </Link>
-                        
-                          
-                        
+                        <Link
+                          className={` inset-0 bg-${
+                            seller.verified ? "green" : "orange"
+                          }-200 rounded-full p-1 px-3`}
+                          onClick={() => handleVerify(seller._id)}
+                        >
+                          {seller.verified ? "verified" : "unverified"}
+                        </Link>
                       </td>
                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">

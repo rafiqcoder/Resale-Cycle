@@ -4,12 +4,10 @@ import Spinner from '../Components/Spinner/Spinner';
 import { UserContext } from '../Context/Context';
 
 const PrivateRoute = ({ children }) => {
-    const { loader,user } = useContext(UserContext);
+    const { loading,user } = useContext(UserContext);
     const location = useLocation();
-    if (loader) {
-        return (
-            <Spinner></Spinner>
-        );
+    if (loading) {
+        return (<Spinner></Spinner>);
 
     }
     if (user && user.uid) {

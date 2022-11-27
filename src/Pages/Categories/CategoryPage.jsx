@@ -31,7 +31,8 @@ const CategoryPage = () => {
  }
 
  const handleAddBooking = (data) => {
-  //  setLoading(true);
+   setLoading(true);
+ 
   data.buyerEmail = user.email;
   data.buyerName = user.displayName;
   data.itemName = currentItem.name;
@@ -40,7 +41,9 @@ const CategoryPage = () => {
   data.sellerLocation = currentItem.location;
   data.sellerEmail = currentItem.email;
   data.sellerName = currentItem.sellerName;
-  data.salePrice = currentItem.sellPrice;
+   data.salePrice = currentItem.sellPrice;
+   data.product_id = currentItem._id;
+   data.status = "pending";
    fetch("http://localhost:5000/booking", {
      method: "POST",
      headers: { "content-type": "application/json" },
@@ -49,17 +52,26 @@ const CategoryPage = () => {
      .then((res) => res.json())
      .then((data) => {
        if (data.acknowledged) {
-         setCurrentItem(null);
-         toast.success("Booked successfully please coplete payment");
-         setLoading(false);
-       }
+          setLoading(false);
+          setCurrentItem(null);
+          toast.success("Product Booked Successfully");
+         
+          
+        } else {
+          setCurrentItem(null);
+          setLoading(false);
+          toast.error('this product is already booked');
+        }
      })
      .catch((err) => {
        setLoading(false);
      });
-   setLoading(false);
+
+
   };
   const handleReport = (item) => {
+const agree = window.confirm("Are you sure to report this product?");
+    if (agree) {
     item.reporterEmail = user.email;
     item.reporterName = user.displayName;
 
@@ -77,6 +89,7 @@ const CategoryPage = () => {
       .catch((err) => {
         console.log(err);
       });
+     }
   };
   // console.log(category);
 
@@ -116,6 +129,7 @@ const CategoryPage = () => {
                     className="btn btn-success mt-5"
                     onClick={() => setCurrentItem(item)}
                   >
+                    {" "}
                     Book Now
                   </label>
                   <div
