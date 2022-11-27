@@ -1,6 +1,7 @@
 import { CardElement,useElements,useStripe } from "@stripe/react-stripe-js";
 import React,{ useContext, useEffect,useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import Spinner from "../../../Components/Spinner/Spinner";
 
 const CheckoutForm = ({data}) => {
@@ -13,7 +14,7 @@ const CheckoutForm = ({data}) => {
       const {  salePrice,  buyerName, buyerEmail, itemName,_id,sellerEmail,product_id } = data;
   console.log(salePrice);
      const [clientSecret, setClientSecret] = useState("");
-  
+    const navigate = useNavigate();
      useEffect(() => {
        // Create PaymentIntent as soon as the page loads
        fetch("http://localhost:5000/create-payment-intent", {
@@ -91,7 +92,9 @@ const CheckoutForm = ({data}) => {
         if (paymentIntent.status==='succeeded') {
          
           setSuccess('Congrates ! Your payment completed')
+         
           setTransectionId(paymentIntent.id)
+          
           const payment = {
             buyerName,
             buyerEmail,
@@ -113,7 +116,8 @@ const CheckoutForm = ({data}) => {
              .then((data) => {
                console.log(data);
                setClientSecret(data.clientSecret);
-            
+          
+              navigate("/my-orders"); 
                toast.success("Payment Successfull");
              })
              .catch((err) => {
@@ -121,7 +125,7 @@ const CheckoutForm = ({data}) => {
             
              });
         }
-      console.log('paymentIntent',paymentIntent);
+    
       // setLoading(false);
   };
 
