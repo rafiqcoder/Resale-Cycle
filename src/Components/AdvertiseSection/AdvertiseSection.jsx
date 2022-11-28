@@ -1,7 +1,7 @@
 import React,{ useContext,useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Navigate,useLocation, useNavigate } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import { UserContext } from '../../Context/Context';
 import UseTitle from '../../hooks/UseTitle';
 import BookingModal from '../BookingModal/BookingModal';
@@ -51,7 +51,7 @@ console.log(user);
       data.product_id = currentItem._id;
       data.status = "pending";
 
-      fetch(`http://localhost:5000/booking?email=${user.email}`, {
+      fetch(`https://usedcycle-server.vercel.app/booking?email=${user.email}`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -83,7 +83,7 @@ console.log(user);
       item.reporterEmail = user.email;
       item.reporterName = user.displayName;
 
-      fetch("http://localhost:5000/report",{
+      fetch("https://usedcycle-server.vercel.app/report",{
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(item),
@@ -110,12 +110,10 @@ console.log(user);
           {products.map((item) => (
             <ProductCard children item={item} key={item._id}>
               <label
-              
                 htmlFor="my-modal"
-                className="btn btn-success mt-5"
-                onClick={()=>handleBook(item)}
+                className="btn btn-success mt-5 hover:bg-secondary text-white border-0"
+                onClick={() => handleBook(item)}
               >
-               
                 Book Now
               </label>
               <div
@@ -150,6 +148,7 @@ console.log(user);
             handleSubmit={handleSubmit}
             register={register}
             errors={errors}
+            setCurrentItem={setCurrentItem}
           ></BookingModal>
         )}
       </div>

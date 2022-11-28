@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React,{ useContext,useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Spinner from '../../../Components/Spinner/Spinner';
 import { UserContext } from '../../../Context/Context';
@@ -18,7 +18,7 @@ const MyOrders = () => {
     queryKey: ["myBookings", user?.email],
     queryFn: async () => {
       const response = await fetch(
-        `http://localhost:5000/booking?email=${user.email}`,{
+        `https://usedcycle-server.vercel.app/booking?email=${user.email}`,{
           headers: {
             authorization: `Bearer ${localStorage.getItem("token")}`,
           }

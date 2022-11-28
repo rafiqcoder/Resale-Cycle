@@ -21,7 +21,7 @@ const CartegorySection = ({ data }) => {
                   </h2>
                   <Link
                     to={`/${item.categoryName}/${item._id}`}
-                    className="mt-2 text-lg tracking-wider text-blue-500 uppercase dark:text-blue-400 btn"
+                    className="mt-2 text-lg tracking-wider text-primary uppercase dark:text-blue-400 btn hover:bg-secondary hover:border-0 hover:text-white"
                   >
                     View All
                   </Link>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React,{ useContext,useEffect,useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import AdvertiseSection from '../../../Components/AdvertiseSection/AdvertiseSection';
 import Banner from '../../../Components/Banner/Banner';
@@ -16,7 +16,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/advertise`)
+      .get(`https://usedcycle-server.vercel.app/advertise`)
       .then((data) => {
         setAdvertisedProducts(data.data);
       })
@@ -27,7 +27,7 @@ const Home = () => {
 
   console.log(data);
   return (
-    <div>
+    <div className="bg-white overflow-hidden">
       <Banner></Banner>
       <CartegorySection data={data}></CartegorySection>
       {advertisedProducts.length > 0 && (
@@ -37,8 +37,9 @@ const Home = () => {
           setRefresh={setRefresh}
         ></AdvertiseSection>
       )}
+
       <Highlights></Highlights>
-    <NewsLetter></NewsLetter>
+      <NewsLetter></NewsLetter>
     </div>
   );
 };

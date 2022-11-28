@@ -1,6 +1,6 @@
 import React,{ useContext } from "react";
 import toast from "react-hot-toast";
-import { NavLink } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 
 import { UserContext } from "../../Context/Context";
 import MobileHeader from "./MobileHeader";
@@ -33,21 +33,21 @@ const Header = () => {
   }
   // desktop header
   return (
-    <header className="shadow 11/12">
-      <div className=" hidden sm:flex navbar bg-base-100 h-[50px] w-[1440px] mx-auto ">
+    <header className="shadow 11/12 bg-base-100">
+      <div className=" hidden md:flex navbar bg-base-100 h-[50px] container px-4 mx-auto ">
         <div className="navbar-start">
-          <NavLink
+          <Link
             to="/"
             className=" normal-case text-xl flex justify-center items-center content-center"
           >
             {/* <img src={logo} className="w-20 rounded-full" alt="" />  */}
             {/* Resale Cycle */}
             RESALE CYCLE
-          </NavLink>
+          </Link>
         </div>
         <div>
-          <ul className="menu menu-horizontal p-0">
-            <li>
+          <ul className="menu menu-horizontal text-primary">
+            <li className="">
               <NavLink
                 to="/"
                 className={({ isActive }) => (isActive ? "active" : undefined)}
@@ -55,20 +55,18 @@ const Header = () => {
                 Home
               </NavLink>
             </li>
-            
-        
-            
+
             <li>
               <NavLink to="/contact-us">Contact Us</NavLink>
             </li>
             <li>
               <NavLink to="/blog">Blogs</NavLink>
             </li>
-            {user?.uid &&
+            {user?.uid && (
               <li>
                 <NavLink to="/dashboard">Dashboard</NavLink>
               </li>
-            }
+            )}
           </ul>
         </div>
         <div className="navbar-end">
@@ -78,7 +76,7 @@ const Header = () => {
           {user && user.uid ? (
             <NavLink
               to="/login"
-              className="btn-outline btn-warning border rounded-r-full rounded-l-full py-[2px] px-3"
+              className="btn-outline text-primary hover:bg-secondary border hover:border-0 rounded-r-full rounded-l-full py-[2px] px-3"
               onClick={handleLogout}
             >
               Logout

@@ -1,7 +1,7 @@
-import React,{ useContext,useEffect,useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link,useLocation,useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Spinner from '../../Components/Spinner/Spinner';
 import { UserContext } from '../../Context/Context';
 import UseTitle from '../../hooks/UseTitle';
@@ -66,7 +66,7 @@ const Register = () => {
           })
         const email = data.email;
         //getting jwt token from backend and setting it in localstorage
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://usedcycle-server.vercel.app/jwt", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React,{ useContext,useState } from 'react';
+import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Spinner from '../../../Components/Spinner/Spinner';
@@ -13,7 +13,7 @@ const ReportedItems = () => {
   const { data: reports = [], refetch } = useQuery({
     queryKey: ["reports"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/report`);
+      const res = await fetch(`https://usedcycle-server.vercel.app/report`);
       const data = await res.json();
       setLoading(false);
       return data;
@@ -27,7 +27,7 @@ const ReportedItems = () => {
     const agree = window.confirm("Are you sure to delete this report?");
     if (agree) {
       
-      fetch(`http://localhost:5000/report/${id}`, {
+      fetch(`https://usedcycle-server.vercel.app/report/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -44,7 +44,7 @@ const ReportedItems = () => {
     };
     console.log(reports);
   // const handleRoleToAdmin = (id) => {
-  //   fetch(`http://localhost:5000/users/admin/${id}?email=${user.email}`, {
+  //   fetch(`https://usedcycle-server.vercel.app/users/admin/${id}?email=${user.email}`, {
   //     method: "PATCH",
   //     headers: {
   //       authorization: `Barear ${localStorage.getItem("token")}`,
@@ -62,7 +62,7 @@ const ReportedItems = () => {
   //     });
   // };
   // const handleRoleToSub = (id) => {
-  //   fetch(`http://localhost:5000/users/subscriber/${id}?email=${user.email}`, {
+  //   fetch(`https://usedcycle-server.vercel.app/users/subscriber/${id}?email=${user.email}`, {
   //     method: "PATCH",
   //     headers: {
   //       authorization: `Barear ${localStorage.getItem("token")}`,

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Highlights = () => {
     return (
-      <div className="2xl:container 2xl:mx-auto lg:px-20 md:py-12 md:px-6 py-9 px-4">
+      <div className="xl:container 2xl:mx-auto  md:py-12 md:px-6 py-9 px-4 container mx-auto">
         <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:gap-8 gap-6 ">
           {/* Safe Shopping Grid Card */}
           <div className=" p-6 bg-gray-50">
@@ -166,7 +166,7 @@ const Highlights = () => {
               Secure Payment
             </p>
             <p className=" font-normal text-base leading-6 text-gray-600 my-4">
-              Free shipping all over the world on orders above $100
+              We accept all major credit cards and stripe
             </p>
             <Link className=" cursor-pointer text-base leading-4 font-medium text-gray-800 border-b-2 border-gray-800 hover:text-gray-600 ">
               Learn More

@@ -10,7 +10,7 @@ const UseAdmin = (email) => {
 
     useEffect(() => {
         console.log('adminHook ');
-        fetch(`http://localhost:5000/admin/${email}`,{
+        fetch(`https://usedcycle-server.vercel.app/admin/${email}`,{
 
             headers: {
                 authorization: `Barear ${localStorage.getItem("token")}`,

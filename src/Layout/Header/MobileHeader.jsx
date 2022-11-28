@@ -1,9 +1,9 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const MobileHeader = ({ initialName ,user,photo,handleLogout}) => {
   return (
-    <div className=" sm:hidden navbar">
+    <div className=" md:hidden navbar">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -25,7 +25,7 @@ const MobileHeader = ({ initialName ,user,photo,handleLogout}) => {
 
           <ul
             tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-compact dropdown-content mt-3 p-1 shadow bg-base-100 rounded-box w-52"
           >
             <li>
               <NavLink
@@ -51,9 +51,9 @@ const MobileHeader = ({ initialName ,user,photo,handleLogout}) => {
         </div>
       </div>
       <div className="navbar-center">
-        <NavLink className="btn btn-ghost normal-case text-xl">
+        <Link to='/' className="btn btn-ghost normal-case text-xl">
           Resale Cycle
-        </NavLink>
+        </Link>
       </div>
       <div className="navbar-end">
         <button className="btn btn-ghost btn-circle">
@@ -95,7 +95,7 @@ const MobileHeader = ({ initialName ,user,photo,handleLogout}) => {
             {user && user.uid ? (
               <NavLink
                 to="/login"
-                className="btn-outline btn-warning border rounded-r-full rounded-l-full py-[2px] px-3"
+                className="btn-outline text-success border rounded-r-full rounded-l-full py-[2px] px-3"
                 onClick={handleLogout}
               >
                 Logout

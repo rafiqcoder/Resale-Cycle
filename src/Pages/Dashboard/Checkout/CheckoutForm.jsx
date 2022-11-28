@@ -1,8 +1,7 @@
-import { CardElement,useElements,useStripe } from "@stripe/react-stripe-js";
-import React,{ useContext, useEffect,useState } from "react";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import Spinner from "../../../Components/Spinner/Spinner";
 
 const CheckoutForm = ({data}) => {
     const [cardError,setCardError] = useState("");
@@ -17,7 +16,7 @@ const CheckoutForm = ({data}) => {
     const navigate = useNavigate();
      useEffect(() => {
        // Create PaymentIntent as soon as the page loads
-       fetch("http://localhost:5000/create-payment-intent", {
+       fetch("https://usedcycle-server.vercel.app/create-payment-intent", {
          method: "POST",
          headers: {
            "Content-Type": "application/json",
@@ -105,7 +104,7 @@ const CheckoutForm = ({data}) => {
             salePrice,
             sellerEmail,
           };
-           fetch("http://localhost:5000/payments", {
+           fetch("https://usedcycle-server.vercel.app/payments", {
              method: "POST",
              headers: {
                "Content-Type": "application/json",

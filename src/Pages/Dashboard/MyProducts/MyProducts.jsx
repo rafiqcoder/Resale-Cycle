@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React,{ useContext,useEffect,useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Spinner from '../../../Components/Spinner/Spinner';
@@ -14,7 +14,7 @@ const MyProducts = () => {
     const [products, setProducts] = useState([]);
     useEffect(() => {
       axios
-        .get(`http://localhost:5000/my-products?email=${user?.email}`)
+        .get(`https://usedcycle-server.vercel.app/my-products?email=${user?.email}`)
         .then((data) => {
           // console.log(data.data);
           setProducts(data.data);
@@ -29,7 +29,7 @@ const MyProducts = () => {
   const handleDelete = (id) => {
          const agree = window.confirm("Are you sure to Delete this product?");
     if (agree) {
-        fetch(`http://localhost:5000/my-products/${id}`, {
+        fetch(`https://usedcycle-server.vercel.app/my-products/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -51,7 +51,7 @@ const MyProducts = () => {
     const choosedProduct = products.find((product) => product._id === id);
       // choosedProduct.status = 'advertise';
     // console.log(choosedProduct);
-        fetch(`http://localhost:5000/advertise?email=${user?.email}`, {
+        fetch(`https://usedcycle-server.vercel.app/advertise?email=${user?.email}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React,{ useContext,useState } from 'react';
+import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Spinner from '../../../Components/Spinner/Spinner';
@@ -19,7 +19,7 @@ const AllBuyers = () => {
   
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/allbuyers?email=${user?.email}`,
+        `https://usedcycle-server.vercel.app/allbuyers?email=${user?.email}`,
         {
           headers: { authorization: `Barear ${localStorage.getItem("token")}` },
         }
@@ -36,7 +36,7 @@ const AllBuyers = () => {
   const handleDelete = (id) => {
      const agree = window.confirm("Are you sure to delete this Buyer?");
     if (agree) {
-    fetch(`http://localhost:5000/allbuyers/${id}?email=${user?.email}`, {
+    fetch(`https://usedcycle-server.vercel.app/allbuyers/${id}?email=${user?.email}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -52,7 +52,7 @@ const AllBuyers = () => {
        }
   };
   // const handleRoleToAdmin = (id) => {
-  //   fetch(`http://localhost:5000/users/admin/${id}?email=${user.email}`, {
+  //   fetch(`https://usedcycle-server.vercel.app/users/admin/${id}?email=${user.email}`, {
   //     method: "PATCH",
   //     headers: {
   //       authorization: `Barear ${localStorage.getItem("token")}`,
@@ -70,7 +70,7 @@ const AllBuyers = () => {
   //     });
   // };
   // const handleRoleToSub = (id) => {
-  //   fetch(`http://localhost:5000/users/subscriber/${id}?email=${user.email}`, {
+  //   fetch(`https://usedcycle-server.vercel.app/users/subscriber/${id}?email=${user.email}`, {
   //     method: "PATCH",
   //     headers: {
   //       authorization: `Barear ${localStorage.getItem("token")}`,

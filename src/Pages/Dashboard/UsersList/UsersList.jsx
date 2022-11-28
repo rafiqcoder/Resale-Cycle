@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import React,{ useContext } from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-import { DataContext, UserContext } from '../../../Context/Context';
+import { UserContext } from '../../../Context/Context';
 
 const UsersList = () => {
     const { user } = useContext(UserContext)
@@ -11,7 +11,7 @@ const UsersList = () => {
     const { data: users=[],refetch } = useQuery({
         queryKey: ["users"],
         queryFn: async  () => {
-            const res = await fetch(`http://localhost:5000/users?email=${user.email}`,{
+            const res = await fetch(`https://usedcycle-server.vercel.app/users?email=${user.email}`,{
                 headers: { authorization:`Barear ${localStorage.getItem('token')}`   }
             })
             const data = await res.json();
@@ -19,7 +19,7 @@ const UsersList = () => {
         }
     });
     const handleDelete = (id) => {
-        fetch(`http://localhost:5000/users/${id}`,{
+        fetch(`https://usedcycle-server.vercel.app/users/${id}`,{
             method: 'DELETE',
         })
             .then(res => res.json())
@@ -35,7 +35,7 @@ const UsersList = () => {
         })
   }
   const handleRoleToAdmin = (id) => {
-    fetch(`http://localhost:5000/users/admin/${id}?email=${user.email}`, {
+    fetch(`https://usedcycle-server.vercel.app/users/admin/${id}?email=${user.email}`, {
       method: "PATCH",
       headers: {
         authorization: `Barear ${localStorage.getItem("token")}`,
@@ -53,7 +53,7 @@ const UsersList = () => {
       });
   };
   const handleRoleToSub = (id) => {
-    fetch(`http://localhost:5000/users/subscriber/${id}?email=${user.email}`, {
+    fetch(`https://usedcycle-server.vercel.app/users/subscriber/${id}?email=${user.email}`, {
       method: "PATCH",
       headers: {
         authorization: `Barear ${localStorage.getItem("token")}`,

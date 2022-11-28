@@ -275,7 +275,7 @@ const Blog = () => {
                   of state you need to properly manage in your React apps: Local
                   state Global state Server state URL state
                 </p>
-                <button className="flex items-center justify-between w-72 mt-6 bg-gray-800 p-4 hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
+                <button className="flex items-center justify-between w-72 mt-6 bg-primary p-4 hover:bg-secondaryfocus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
                   <p className="text-base font-medium leading-4 text-white">
                     Read more
                   </p>
@@ -331,7 +331,7 @@ const Blog = () => {
                   Object.setPrototypeOf. Nowadays, in modern language, it is
                   being set using __proto__.
                 </p>
-                <button className="flex items-center justify-between w-72 mt-6 bg-gray-800 p-4 hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
+                <button className="flex items-center justify-between w-72 mt-6 bg-primary p-4 hover:bg-secondaryfocus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
                   <p className="text-base font-medium leading-4 text-white">
                     Read more
                   </p>
@@ -387,7 +387,7 @@ const Blog = () => {
                   correctly, it can help detect early flaws in code which may be
                   more difficult to find in later testing stages.
                 </p>
-                <button className="flex items-center justify-between w-72 mt-6 bg-gray-800 p-4 hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
+                <button className="flex items-center justify-between w-72 mt-6 bg-primary p-4 hover:bg-secondaryfocus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
                   <p className="text-base font-medium leading-4 text-white">
                     Read more
                   </p>
@@ -457,7 +457,7 @@ const Blog = () => {
                   easier to integrate into new or existing projects and many
                   feel its use of HTML templates along with JSX is an advantage.
                 </p>
-                <button className="flex items-center justify-between w-72 mt-6 bg-gray-800 p-4 hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
+                <button className="flex items-center justify-between w-72 mt-6 bg-primary p-4 hover:bg-secondaryfocus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
                   <p className="text-base font-medium leading-4 text-white">
                     Read more
                   </p>

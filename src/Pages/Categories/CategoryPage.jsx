@@ -56,7 +56,7 @@ const handleBook = (item) => {
    data.salePrice = currentItem.sellPrice;
    data.product_id = currentItem._id;
    data.status = "pending";
-   fetch("http://localhost:5000/booking", {
+   fetch("https://usedcycle-server.vercel.app/booking", {
      method: "POST",
      headers: { "content-type": "application/json" },
      body: JSON.stringify(data),
@@ -87,7 +87,7 @@ const agree = window.confirm("Are you sure to report this product?");
     item.reporterEmail = user.email;
     item.reporterName = user.displayName;
 
-    fetch("http://localhost:5000/report", {
+    fetch("https://usedcycle-server.vercel.app/report", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(item),
@@ -109,7 +109,7 @@ const agree = window.confirm("Are you sure to report this product?");
 
       // useEffect(() => {
       //   axios
-      //     .get("http://localhost:5000/veloce")
+      //     .get("https://usedcycle-server.vercel.app/veloce")
       //       .then((data) => { setProducts(data.data); setLoading(false)})
       //     .catch((error) => {
       //       // handle error
@@ -138,7 +138,7 @@ const agree = window.confirm("Are you sure to report this product?");
                 <ProductCard children item={item} key={item._id}>
                   <label
                     htmlFor="my-modal"
-                    className="btn btn-success mt-5"
+                    className="btn btn-success mt-5 hover:bg-secondary text-white border-0"
                     onClick={() => handleBook(item)}
                   >
                     {" "}
@@ -176,6 +176,7 @@ const agree = window.confirm("Are you sure to report this product?");
                 handleSubmit={handleSubmit}
                 register={register}
                 errors={errors}
+                setCurrentItem={setCurrentItem}
               ></BookingModal>
             )}
           </div>

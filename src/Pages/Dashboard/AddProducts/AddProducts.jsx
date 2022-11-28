@@ -54,7 +54,7 @@ const AddProducts = () => {
     };
      
     // inserting new Product
-    fetch(`http://localhost:5000/add-Product?email=${user?.email}`, {
+    fetch(`https://usedcycle-server.vercel.app/add-Product?email=${user?.email}`, {
       method: "POST",
       headers: {
         "content-type": "application/json"},
@@ -79,7 +79,7 @@ const AddProducts = () => {
     <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100 mx-auto my-20">
       <form onSubmit={handleSubmit(handleAddProduct)} className="card-body">
         <div className=" text-center">
-          <h2 className="text-2xl text-primary text-center outline outline-1">
+          <h2 className="text-2xl text-secondary text-center outline outline-1">
             Add New Product
           </h2>
         </div>
@@ -281,7 +281,7 @@ const AddProducts = () => {
           )}
         </div>
         <div className="form-control mt-6">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-secondary">
             add New
           </button>
         </div>

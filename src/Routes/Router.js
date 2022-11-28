@@ -8,8 +8,6 @@ import Blog from "../Pages/Blog/Blog";
 // import Blog from "../Pages/ContactUs/ContactUs";
 import CategoryPage from "../Pages/Categories/CategoryPage";
 import ContactUs from "../Pages/ContactUs/ContactUs";
-import Foxter from "../Pages/Categories/Foxter";
-import Phonix from "../Pages/Categories/Phonix";
 import AddProducts from "../Pages/Dashboard/AddProducts/AddProducts";
 import Checkout from "../Pages/Dashboard/Checkout/Checkout";
 import Dashboard from "../Pages/Dashboard/Dashboard/Dashboard";
@@ -32,11 +30,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',element: <Home></Home>,
-                loader: () => { return fetch('http://localhost:5000/all-categories') }
+                loader: () => { return fetch('https://usedcycle-server.vercel.app/all-categories') }
             },
             {
                 path: '/home',element: <Home></Home>,
-                loader: () => { return fetch('http://localhost:5000/all-categories') }
+                loader: () => { return fetch('https://usedcycle-server.vercel.app/all-categories') }
             },
 
 
@@ -49,7 +47,7 @@ const router = createBrowserRouter([
                 path: '/login',element: <Login />
             },
             {
-                path: '/contact-us',element: <ContactUs/>
+                path: '/contact-us',element: <ContactUs />
             },
             {
                 path: '/blog',element: <Blog />
@@ -57,10 +55,10 @@ const router = createBrowserRouter([
             {
                 path: '/register',element: <Register></Register>
             },
-            
+
             {
                 path: '/:name/:id',element: <CategoryPage />,
-                loader: ({ params }) => { return fetch(`http://localhost:5000/${params.name}/${params.id}`) }
+                loader: ({ params }) => { return fetch(`https://usedcycle-server.vercel.app/${params.name}/${params.id}`) }
             },
 
             {
@@ -79,7 +77,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/checkout/:id',element: <Checkout></Checkout>,
-                loader: ({ params }) => { return fetch(`http://localhost:5000/checkout/${params.id}`) },
+                loader: ({ params }) => { return fetch(`https://usedcycle-server.vercel.app/checkout/${params.id}`) },
             },
             {
                 path: '/reports',element: <AdminRoutes> <ReportedItems /></AdminRoutes>,

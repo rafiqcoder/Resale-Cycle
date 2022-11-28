@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React,{ useContext,useState } from 'react';
+import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Spinner from '../../../Components/Spinner/Spinner';
@@ -14,7 +14,7 @@ const AllSellers = () => {
 
       queryFn: async () => {
         const res = await fetch(
-          `http://localhost:5000/allsellers?email=${user?.email}`,
+          `https://usedcycle-server.vercel.app/allsellers?email=${user?.email}`,
           {
             headers: {
               authorization: `Barear ${localStorage.getItem("token")}`,
@@ -32,7 +32,7 @@ const AllSellers = () => {
   const handleDelete = (id) => {
      const agree = window.confirm("Are you sure to delete this Seller?");
     if (agree) {
-        fetch(`http://localhost:5000/allselllers/${id}?email=${user?.email}`, {
+        fetch(`https://usedcycle-server.vercel.app/allselllers/${id}?email=${user?.email}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -48,7 +48,7 @@ const AllSellers = () => {
            }
       };
       const handleVerify = (id) => {
-        fetch(`http://localhost:5000/allselllers/${id}`, {
+        fetch(`https://usedcycle-server.vercel.app/allselllers/${id}`, {
           method: "PATCH",
         })
           .then((res) => res.json())

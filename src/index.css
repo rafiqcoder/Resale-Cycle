@@ -35,7 +35,7 @@ header {
 }
 p {
   font-family: "Montserrat", sans-serif;
- 
+
   font-weight: 400;
 }
 
@@ -46,7 +46,6 @@ h4,
 h5,
 h6 {
   font-family: "Saira Semi Condensed", sans-serif;
-  
 }
 /* footer{
     background: url('Assets/images/footerImg.png') no-repeat;
@@ -75,10 +74,23 @@ input {
   background-image: url("Assets/images/phonix.jpg");
 }
 .cat_bg_3 {
-  background-image: url("Assets/images/foxter2.webp")
-    
+  background-image: url("Assets/images/foxter2.webp");
 }
 /* .cat_Banner_bg {
   background-image: url("Assets/images/veloce1.jpg")
     
 } */
+
+a.active {
+  background: white;
+  color: #ff5733;
+  /* padding: 23px !important; */
+  border-bottom: 3px solid;
+}
+
+@media (min-width: 768px) {
+  .menu > li > a {
+    padding: 23px 10px;
+    font-size: 14px;
+  }
+}

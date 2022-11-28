@@ -2,19 +2,29 @@ import React from 'react';
 
 const BookingModal = ({
   handleAddcategory: handleAddBooking,
-   user,
+  user,
   currentItem,
-    handleSubmit,
+  handleSubmit,
   register,
-errors
+  errors,
+  setCurrentItem,
 }) => {
-
+  const closeModal = () => {
+    setCurrentItem(null);
+  };
   return (
-    <div>
-      <input type="checkbox" id="my-modal" className="modal-toggle" />
+    <div className="overflow-hidden">
+      <input type="checkbox" id="my-modal" className="modal-toggle " />
       <div className="modal">
         <div className="modal-box">
-          <div className="flex-shrink-0 w-full max-w-xl  bg-base-100 mx-auto">
+          <label
+            htmlFor="my-modal-3"
+            className="btn btn-sm btn-circle absolute right-2 top-2"
+            onClick={closeModal}
+          >
+            ✕
+          </label>
+          <div className="flex-shrink-0 w-full max-w-xl  bg-base-100 mx-auto overflow-hidden">
             <form
               onSubmit={handleSubmit(handleAddBooking)}
               className="card-body"
@@ -76,13 +86,13 @@ errors
                     <span className="label-text">Seller Location</span>
                   </label>
                   <input
-                    {...register("    data.itemName = currentItem.name;")}
+                    {...register("data.itemName = currentItem.name;")}
                     defaultValue={currentItem?.location}
                     disabled
-                    className="input input-bordered"
+                    className="input input-bordered w-full"
                   />
                 </div>
-           
+
                 <div className="form-control ">
                   <label className="label">
                     <span className="label-text">Sale Price</span>
@@ -92,7 +102,7 @@ errors
                     {...register("salePrice")}
                     defaultValue={currentItem?.sellPrice}
                     disabled
-                    className="input input-bordered"
+                    className="input input-bordered w-full"
                   />
                 </div>
                 {errors.salePrice && (
@@ -104,7 +114,7 @@ errors
                   </p>
                 )}
               </div>
-              <div className="flex gap-3 justify-between">
+              <div className="flex sm:gap-3 justify-between">
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Mobile Number</span>
@@ -115,7 +125,7 @@ errors
                       required: "Mobile Number is required",
                     })}
                     placeholder="Mobile Number"
-                    className="input input-bordered"
+                    className="input input-bordered w-full"
                   />
                 </div>
                 {errors.mobile && (
@@ -137,7 +147,7 @@ errors
                       required: "location is required",
                     })}
                     placeholder="Location"
-                    className="input input-bordered"
+                    className="input input-bordered w-full"
                   />
                 </div>
                 {errors.meetingLocation && (
@@ -152,15 +162,9 @@ errors
 
               {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illo quae non praesentium assumenda itaque deleniti reiciendis dolores sapiente eligendi repudiandae vel, dolor ducimus corrupti veniam natus nesciunt quas ea. */}
 
-            
-                <button
-                  
-                  type="submit"
-                  className="btn btn-primary"
-                >
-                  Submit
-                </button>
-            
+              <button type="submit" className="btn btn-primary mt-6">
+                Submit
+              </button>
             </form>
           </div>
         </div>

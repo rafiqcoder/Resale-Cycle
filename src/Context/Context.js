@@ -2,7 +2,6 @@
 import axios from 'axios';
 import { createUserWithEmailAndPassword,getAuth,GoogleAuthProvider,onAuthStateChanged,signInWithEmailAndPassword,signInWithPopup,signOut,updateProfile } from "firebase/auth";
 import React,{ createContext,useEffect,useState } from 'react';
-import toast from "react-hot-toast";
 import { app } from '../Firebase/Firebase.config';
 
 
@@ -28,7 +27,7 @@ const Context = ({ children }) => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:5000/allusers")
+            .get("https://usedcycle-server.vercel.app/allusers")
             .then((data) => setUserData(data.data))
             .catch((error) => {
                 // handle error
@@ -80,8 +79,8 @@ const Context = ({ children }) => {
         }
 
         const user = { name,email,img,userType,verified };
-        console.log(user+'context 83');
-        fetch(`http://localhost:5000/users`,{
+        console.log(user + 'context 83');
+        fetch(`https://usedcycle-server.vercel.app/users`,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

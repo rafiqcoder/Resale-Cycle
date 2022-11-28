@@ -1,5 +1,5 @@
 
-import React,{useState } from 'react';
+import React,{ useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import Spinner from '../../../Components/Spinner/Spinner';
@@ -27,7 +27,7 @@ const AddCategories = () => {
         setRefresh(true);
         
     // inserting new Category
-    fetch("http://localhost:5000/add-category", {
+    fetch("https://usedcycle-server.vercel.app/add-category", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),
@@ -49,7 +49,7 @@ const AddCategories = () => {
     <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100 mx-auto my-20">
       <form onSubmit={handleSubmit(handleAddcategory)} className="card-body">
         <div className=" text-center">
-          <h2 className="text-2xl text-primary text-center outline outline-1">
+          <h2 className="text-2xl text-secondary text-center outline outline-1">
             Add New Category
           </h2>
         </div>
@@ -112,7 +112,7 @@ const AddCategories = () => {
         {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illo quae non praesentium assumenda itaque deleniti reiciendis dolores sapiente eligendi repudiandae vel, dolor ducimus corrupti veniam natus nesciunt quas ea. */}
 
         <div className="form-control mt-6">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-secondary">
             add Category
           </button>
         </div>

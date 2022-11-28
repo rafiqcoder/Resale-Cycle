@@ -2,7 +2,7 @@ import React from 'react';
 
 const DashWellcome = () => {
     return (
-      <div className="bg-white dark:bg-gray-900">
+      <div className=" dark:bg-gray-900">
         <div className="container px-6 py-16 mx-auto">
           <div className="items-center lg:flex justify-center">
             <div className="w-full lg:w-1/2">
