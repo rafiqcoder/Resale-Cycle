@@ -28,6 +28,7 @@
 - Seller Verification
 - Buyer can report a seller
 - Buyer can see their all orders
+* Custom hooks
 
 ## Live Web App link
 
@@ -47,7 +48,6 @@
 - react router dom
 - Firebase
 - moment.js
-
 * MongoDB
 * Vercel
 * @stripe/react-stripe

@@ -1,4 +1,4 @@
-import React,{ useContext,useState } from 'react';
+import React,{ useContext,useEffect,useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link,useLocation,useNavigate } from 'react-router-dom';
@@ -25,9 +25,13 @@ const Register = () => {
   
   const from = location.state?.from?.pathname || "/";
   const [token]=UseToken(userEmail)
-  if (token) {
-   return navigate(from ,{replace: true});
-  }
+
+  useEffect(() => {
+      if (token) {
+        navigate(from, { replace: true });
+      }
+  },[from,navigate,token])
+  
   // getting location from react-router-dom
 
   // setting title

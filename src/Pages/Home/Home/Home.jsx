@@ -4,6 +4,8 @@ import { useLoaderData } from 'react-router-dom';
 import AdvertiseSection from '../../../Components/AdvertiseSection/AdvertiseSection';
 import Banner from '../../../Components/Banner/Banner';
 import CartegorySection from '../../../Components/CategorySection/CartegorySection';
+import Highlights from '../../../Components/Highlights/Highlights';
+import NewsLetter from '../../../Components/NewsLetter/NewsLetter';
 import { UserContext } from '../../../Context/Context';
 
 const Home = () => {
@@ -35,6 +37,8 @@ const Home = () => {
           setRefresh={setRefresh}
         ></AdvertiseSection>
       )}
+      <Highlights></Highlights>
+    <NewsLetter></NewsLetter>
     </div>
   );
 };

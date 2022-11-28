@@ -30,27 +30,23 @@ const MobileHeader = ({ initialName ,user,photo,handleLogout}) => {
             <li>
               <NavLink
                 to="/"
-                className={({ isActive }) => (isActive ? "active:" : undefined)}
+                className={({ isActive }) => (isActive ? "active" : undefined)}
               >
                 Home
               </NavLink>
             </li>
+
             <li>
-              <NavLink to="/services">Services</NavLink>
+              <NavLink to="/contact-us">Contact Us</NavLink>
             </li>
-            {user && user.uid && (
-              <div className="">
-                <li>
-                  <NavLink to="/reviews">My Reviews</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/add-service">Add Service</NavLink>
-                </li>
-              </div>
-            )}
             <li>
-              <NavLink to="/blog">Blog</NavLink>
+              <NavLink to="/blog">Blogs</NavLink>
             </li>
+            {user?.uid &&
+              <li>
+                <NavLink to="/dashboard">Dashboard</NavLink>
+              </li>
+            }
           </ul>
         </div>
       </div>

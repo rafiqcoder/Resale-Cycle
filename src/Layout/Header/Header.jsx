@@ -55,18 +55,20 @@ const Header = () => {
                 Home
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/About">About</NavLink>
-            </li>
-
+            
         
             
             <li>
               <NavLink to="/contact-us">Contact Us</NavLink>
             </li>
             <li>
-              <NavLink to="/dashboard">Dashboard</NavLink>
+              <NavLink to="/blog">Blogs</NavLink>
             </li>
+            {user?.uid &&
+              <li>
+                <NavLink to="/dashboard">Dashboard</NavLink>
+              </li>
+            }
           </ul>
         </div>
         <div className="navbar-end">

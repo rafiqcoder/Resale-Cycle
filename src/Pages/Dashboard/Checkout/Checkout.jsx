@@ -1,12 +1,10 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import React from "react";
-import { useLoaderData, useNavigation } from "react-router-dom";
+import { useLoaderData,useNavigation } from "react-router-dom";
 import Spinner from "../../../Components/Spinner/Spinner";
 import CheckoutForm from "./CheckoutForm";
-const stripePromise = loadStripe(
-  "pk_test_51M7DjLD0ZYFK3b5MMtCin335XROKKXfyDtQq7AqYNLNWcXbElfiblXjPIBraSVcHJsf1IaGpQEjrOuqPDwMuWBWc00WI5PFpCU"
-);
+const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PK}`);
 
 const Checkout = () => {
   const data = useLoaderData();

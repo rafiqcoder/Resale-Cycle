@@ -4,7 +4,10 @@ import Register from "../Auth/Register/Register";
 import AddCategories from "../Components/DashComponents/AddCategories/AddCategories";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Main from "../Layout/Main";
+import Blog from "../Pages/Blog/Blog";
+// import Blog from "../Pages/ContactUs/ContactUs";
 import CategoryPage from "../Pages/Categories/CategoryPage";
+import ContactUs from "../Pages/ContactUs/ContactUs";
 import Foxter from "../Pages/Categories/Foxter";
 import Phonix from "../Pages/Categories/Phonix";
 import AddProducts from "../Pages/Dashboard/AddProducts/AddProducts";
@@ -46,13 +49,20 @@ const router = createBrowserRouter([
                 path: '/login',element: <Login />
             },
             {
-                path: '/register',element: <Register></Register>
+                path: '/contact-us',element: <ContactUs/>
             },
             {
-                path: '/:name/:id',element: <CategoryPage />,
-                loader: ({params}) => { return fetch(`http://localhost:5000/${params.name}/${params.id}`) }
+                path: '/blog',element: <Blog />
+            },
+            {
+                path: '/register',element: <Register></Register>
             },
             
+            {
+                path: '/:name/:id',element: <CategoryPage />,
+                loader: ({ params }) => { return fetch(`http://localhost:5000/${params.name}/${params.id}`) }
+            },
+
             {
                 path: '*',element: <NotFound />
             },
@@ -75,7 +85,7 @@ const router = createBrowserRouter([
                 path: '/reports',element: <AdminRoutes> <ReportedItems /></AdminRoutes>,
             },
             {
-                path: '/all-buyers',element:<AdminRoutes> < AllBuyers /></AdminRoutes>,
+                path: '/all-buyers',element: <AdminRoutes> < AllBuyers /></AdminRoutes>,
             },
             {
                 path: '/all-sellers',element: <AdminRoutes>< AllSellers /></AdminRoutes>,
@@ -90,7 +100,7 @@ const router = createBrowserRouter([
             {
                 path: '/my-products',element: <MyProducts />,
             },
-            
+
 
         ],
     },

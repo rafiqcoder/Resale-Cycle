@@ -1,4 +1,4 @@
-import React,{ useContext,useState } from 'react';
+import React,{ useContext,useEffect,useState } from 'react';
 import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
 import { Link,useLocation,useNavigate } from 'react-router-dom';
@@ -16,15 +16,15 @@ const Login = () => {
   const navigate = useNavigate();
   const [userEmail,setUserEmail] = useState('')
   const [token]=UseToken(userEmail)
-  const [data,setData] = useState([])
 
     const from = location.state?.from?.pathname || "/home";
 
-  if (token) {
-    
-    return navigate(from ,{replace: true});
-  }
+  useEffect(() => {
+    if (token) {
+      return navigate(from, { replace: true });
+    }
 
+  }, [from, navigate, token]);
 
   // loading state
   
