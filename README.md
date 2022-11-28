@@ -28,15 +28,16 @@
 - Seller Verification
 - Buyer can report a seller
 - Buyer can see their all orders
+
 * Custom hooks
 
 ## Live Web App link
 
--
+- https://resalecyclebd.web.app/
 
 ## Backend Server GitHub Ripo Link
 
--
+- https://github.com/programming-hero-web-course-4/b612-used-products-resale-server-side-rafiqcoder
 
 # Package Library Used
 
@@ -48,6 +49,7 @@
 - react router dom
 - Firebase
 - moment.js
+
 * MongoDB
 * Vercel
 * @stripe/react-stripe
