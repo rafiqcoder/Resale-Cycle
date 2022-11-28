@@ -1,5 +1,9 @@
 import React from "react";
 import UseTitle from "../../hooks/UseTitle";
+import ReactState from "../../Assets/images/ReactState.jpg";
+import ptototype from "../../Assets/images/prototype.webp";
+import reactVue from "../../Assets/images/reactVue.png";
+import unit from "../../Assets/images/unit.png";
 
 const Blog = () => {
   //seting title
@@ -246,29 +250,30 @@ const Blog = () => {
         </div>
 
         <div className="2xl:mx-auto 2xl:container 2xl:px-20 xl:px-12 sm:px-6 px-4 py-16">
-          
           <div className="md:flex items-start justify-between mt-12">
             <div className="md:w-1/2 lg:w-full">
               <div>
                 <div className="relative">
-                  <img src="https://i.ibb.co/HxkBZQM/img-1.png" alt="stairs" />
+                  <img src={ReactState} alt="stairs" />
                   <div className="bg-white absolute top-0 left-0">
                     <p className="text-base leading-4 py-3 px-5 text-gray-800">
-                      News
+                      FAQ
                     </p>
                   </div>
                 </div>
                 <p className="text-base font-light leading-4 text-gray-800 mt-6">
-                  Michael Jackson
+                  Md Rafiqul Islam
                 </p>
                 <h1 className="text-2xl font-semibold leading-7 sm:pr-20 mt-2 text-gray-800">
-                  Moving up the corporate ladder?
+                  Q1. What are the different ways to manage a state in a react
+                  application ?
                 </h1>
                 <p className="text-base leading-normal mt-4 sm:pr-20 md:pr-10 text-gray-600">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution
+                  The Four Kinds of React State to Manage When we talk about
+                  state in our applications, it’s important to be clear about
+                  what types of state actually matter. There are four main types
+                  of state you need to properly manage in your React apps: Local
+                  state Global state Server state URL state
                 </p>
                 <button className="flex items-center justify-between w-72 mt-6 bg-gray-800 p-4 hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
                   <p className="text-base font-medium leading-4 text-white">
@@ -304,27 +309,27 @@ const Blog = () => {
               </div>
               <div className="mt-9">
                 <div className="relative">
-                  <img
-                    src="https://i.ibb.co/8mP5tmS/img-2.png"
-                    alt="flower pot"
-                  />
+                  <img src={ptototype} alt="flower pot" />
                   <div className="bg-white absolute top-0 left-0">
                     <p className="text-base leading-4 py-3 px-5 text-gray-800">
-                      News
+                      FAQ
                     </p>
                   </div>
                 </div>
                 <p className="text-base font-light leading-4 text-gray-800 mt-6">
-                  Michael Jackson
+                  Md Rafiqul Islam
                 </p>
                 <h1 className="text-2xl font-semibold leading-7 sm:pr-20 mt-2 text-gray-800">
-                  Expert advice on wood works
+                  Q2. How does prototypical inheritance work
                 </h1>
                 <p className="text-base leading-normal mt-4 sm:pr-20 md:pr-10 text-gray-600">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution
+                  Prototypal Inheritance is a feature in javascript used to add
+                  methods and properties in objects. It is a method by which an
+                  object can inherit the properties and methods of another
+                  object. Traditionally, in order to get and set the
+                  [[Prototype]] of an object, we use Object.getPrototypeOf and
+                  Object.setPrototypeOf. Nowadays, in modern language, it is
+                  being set using __proto__.
                 </p>
                 <button className="flex items-center justify-between w-72 mt-6 bg-gray-800 p-4 hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
                   <p className="text-base font-medium leading-4 text-white">
@@ -362,24 +367,25 @@ const Blog = () => {
             <div className="md:w-1/2 md:ml-6 md:mt-0 mt-9 lg:w-full">
               <div>
                 <div className="relative">
-                  <img src="https://i.ibb.co/DKg5zHT/img-3.png" alt="stairs" />
+                  <img src={unit} alt="stairs" />
                   <div className="bg-white absolute top-0 left-0">
                     <p className="text-base leading-4 py-3 px-5 text-gray-800">
-                      News
+                      FAQ
                     </p>
                   </div>
                 </div>
                 <p className="text-base font-light leading-4 text-gray-800 mt-6">
-                  James McFerson
+                  Md Rafiqul Islam
                 </p>
                 <h1 className="text-2xl font-semibold leading-7 sm:pr-20 mt-2 text-gray-800">
-                  How a serene environment affects productivity
+                  Q3. What is a unit test why should we write unit test?
                 </h1>
                 <p className="text-base leading-normal mt-4 sm:pr-20 md:pr-10 text-gray-600">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution
+                  The main objective of unit testing is to isolate written code
+                  to test and determine if it works as intended. Unit testing is
+                  an important step in the development process, because if done
+                  correctly, it can help detect early flaws in code which may be
+                  more difficult to find in later testing stages.
                 </p>
                 <button className="flex items-center justify-between w-72 mt-6 bg-gray-800 p-4 hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
                   <p className="text-base font-medium leading-4 text-white">
@@ -415,25 +421,41 @@ const Blog = () => {
               </div>
               <div className="mt-9">
                 <div className="relative">
-                  <img src="https://i.ibb.co/dPBXFwY/img-4.png" alt="stairs" />
+                  <img src={reactVue} alt="stairs" />
                   <div className="bg-white absolute top-0 left-0">
                     <p className="text-base leading-4 py-3 px-5 text-gray-800">
-                      News
+                      FAQ
                     </p>
                   </div>
                 </div>
                 <p className="text-base font-light leading-4 text-gray-800 mt-6">
-                  James McFerson
+                  Md Rafiqul Islam
                 </p>
                 <h1 className="text-2xl font-semibold leading-7 sm:pr-20 mt-2 text-gray-800">
-                  How to grow as a team through a balance of collaboration and
-                  individualism
+                  Q4. React vs Angular vs Vue
                 </h1>
                 <p className="text-base leading-normal mt-4 sm:pr-20 md:pr-10 text-gray-600">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution
+                  If the choice you’re making is based on Angular vs React
+                  alone, then you’ll simply need to consider the pros and cons
+                  discussed for those libraries in this post. But overall, keep
+                  in mind that both libraries can be used for mobile and web
+                  apps, while Angular is generally better for more complex apps
+                  that are enterprise-ready.
+                  <br />
+                  React often requires extra modules and components, which keeps
+                  the core library small, but means there’s extra work involved
+                  when incorporating outside tools. Angular, on the other hand,
+                  is more of a full-fledged solution that doesn’t require extras
+                  like React often does, though it does have a steeper learning
+                  curve for its core compared to React. React is more suitable
+                  for intermediate to advanced JavaScript developers who are
+                  familiar with concepts from ES6 and up, while Angular favors
+                  those same developers who are also familiar with TypeScript.
+                  <br />
+                  Vue is generally more suited to smaller, less complex apps and
+                  is easier to learn from scratch compared to React. Vue can be
+                  easier to integrate into new or existing projects and many
+                  feel its use of HTML templates along with JSX is an advantage.
                 </p>
                 <button className="flex items-center justify-between w-72 mt-6 bg-gray-800 p-4 hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
                   <p className="text-base font-medium leading-4 text-white">
@@ -470,8 +492,6 @@ const Blog = () => {
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
   );

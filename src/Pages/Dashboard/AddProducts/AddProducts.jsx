@@ -54,9 +54,10 @@ const AddProducts = () => {
     };
      
     // inserting new Product
-    fetch("http://localhost:5000/add-Product", {
+    fetch(`http://localhost:5000/add-Product?email=${user?.email}`, {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json"},
       body: JSON.stringify(product),
     })
       .then((res) => res.json())

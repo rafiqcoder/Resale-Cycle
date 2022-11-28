@@ -163,7 +163,7 @@ const Highlights = () => {
               />
             </svg>
             <p className=" text-xl text-gray-800 font-semibold leading-5 mt-6">
-              Free Shipping
+              Secure Payment
             </p>
             <p className=" font-normal text-base leading-6 text-gray-600 my-4">
               Free shipping all over the world on orders above $100
