@@ -15,7 +15,6 @@ const Context = ({ children }) => {
     const [userEmail,setUserEmail] = useState('')
     const [userData,setUserData] = useState([]);
     const [currentUser,setCurrentUser] = useState([]);
-    // console.log(currentUser);
     const auth = getAuth(app)
 
     const Provider = new GoogleAuthProvider();
@@ -23,15 +22,12 @@ const Context = ({ children }) => {
     useEffect(() => {
         setCurrentUser(userData?.find((eachUser) => eachUser?.email === user?.email))
     },[userData,user])
-    // console.log(userData);
 
     useEffect(() => {
         axios
             .get("https://usedcycle-server.vercel.app/allusers")
             .then((data) => setUserData(data.data))
             .catch((error) => {
-                // handle error
-                console.log(error);
             });
     },[setUserData]);
 
@@ -54,7 +50,6 @@ const Context = ({ children }) => {
             photoURL: photo
         })
     }
-    // console.log(user);
     const logOut = () => {
         setLoading(true);
         return signOut(auth)
@@ -68,7 +63,6 @@ const Context = ({ children }) => {
         return () => unsubscribe();
     },[auth])
 
-    // console.log(userData);
 
 
     const saveUserToDb = (name,email,img,userType) => {
@@ -79,7 +73,6 @@ const Context = ({ children }) => {
         }
 
         const user = { name,email,img,userType,verified };
-        console.log(user + 'context 83');
         fetch(`https://usedcycle-server.vercel.app/users`,{
             method: "POST",
             headers: {
@@ -90,15 +83,14 @@ const Context = ({ children }) => {
             .then((res) => res.json())
             .then((data) => {
                 if (data.insertedId) {
-                    // getUserToken(user.email);
                     setUserEmail(user?.email);
                 }
 
             }).catch((err) => {
-                console.log(err);
             });
     };
 
+    // sharing user infor from db
 
     const dataInfo = { currentUser,setCurrentUser }
 

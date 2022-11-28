@@ -18,7 +18,7 @@ const Login = () => {
   const [token]=UseToken(userEmail)
 
     const from = location.state?.from?.pathname || "/home";
-
+  //redirection after login
   useEffect(() => {
     if (token) {
       return navigate(from, { replace: true });
@@ -27,7 +27,6 @@ const Login = () => {
   }, [from, navigate, token]);
 
   // loading state
-  
   UseTitle('Login');
 
 

@@ -12,7 +12,9 @@ import ProductCard from '../ProductCard/ProductCard';
      
 const AdvertiseSection = ({ products, refresh, setRefresh }) => {
   const { user } = useContext(UserContext);
-  const [currentItem, setCurrentItem] = useState(null);
+  const [currentItem,setCurrentItem] = useState(null);
+  
+
   const {
     register,
     formState: { errors },
@@ -24,7 +26,6 @@ const AdvertiseSection = ({ products, refresh, setRefresh }) => {
 
   const navigate = useNavigate();
 
-console.log(user);
   const handleBook = (item) => {
       if (user === null) {
         return (
@@ -77,6 +78,7 @@ console.log(user);
    
     
   };
+  
   const handleReport = (item) => {
     const agree = window.confirm("Are you sure to report this product?");
     if (agree) {

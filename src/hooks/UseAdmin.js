@@ -6,10 +6,8 @@ const UseAdmin = (email) => {
 
     const [isAdmin,setIsAdmin] = useState(false)
     const [adminLoading,setAdminLoading] = useState(true)
-    console.log(email);
 
     useEffect(() => {
-        console.log('adminHook ');
         fetch(`https://usedcycle-server.vercel.app/admin/${email}`,{
 
             headers: {
@@ -18,7 +16,6 @@ const UseAdmin = (email) => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data.message + ' admin 20');
                 if (data.message === 'success') {
                     setIsAdmin(true)
                     setAdminLoading(false)
@@ -29,7 +26,6 @@ const UseAdmin = (email) => {
             })
             .catch((error) => {
                 setAdminLoading(false)
-                console.log(error);
             });
     },[email,setAdminLoading])
 

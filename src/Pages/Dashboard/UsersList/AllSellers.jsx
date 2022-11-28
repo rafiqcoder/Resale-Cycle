@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useState } from 'react';
+import React,{ useContext,useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Spinner from '../../../Components/Spinner/Spinner';
@@ -9,24 +9,29 @@ const AllSellers = () => {
     const { user } = useContext(UserContext);
     const [loading, setLoading] = useState(true);
 
-    const { data: sellers = [], refetch } = useQuery({
-      queryKey: ["user"],
+  const {
+    data: sellers = [],
+    refetch,
+  } = useQuery({
+    queryKey: ["user"],
 
-      queryFn: async () => {
-        const res = await fetch(
-          `https://usedcycle-server.vercel.app/allsellers?email=${user?.email}`,
-          {
-            headers: {
-              authorization: `Barear ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-        const data = await res.json();
-        setLoading(false);
-        return data;
-      },
-    });
-    if (loading) {
+    queryFn: async () => {
+      
+      const res = await fetch(
+        `https://usedcycle-server.vercel.app/allsellers?email=${user?.email}`,
+        {
+          headers: {
+            authorization: `Barear ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const data = await res.json();
+      setLoading(false);
+      return data;
+    },
+  });
+  
+    if (loading ) {
       return <Spinner></Spinner>;
     }
   const handleDelete = (id) => {
